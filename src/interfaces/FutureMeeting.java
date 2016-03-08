@@ -1,5 +1,7 @@
 /**
- * Created by chris on 08/03/2016.
+ * A meeting to be held in the future
  */
-public class FutureMeeting {
+public interface FutureMeeting extends Meeting{
+    // No methods here, this is just a naming interface
+    // (i.e. only necessary for type checking and/or downcasting)
 }
