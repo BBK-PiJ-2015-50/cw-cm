@@ -4,6 +4,15 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * Created by Chris Kimberley on 08/03/2016.
  */
 public class ContactImpl implements Contact {
+    private int id;
+    private String name, notes;
+
+    public ContactImpl(int id, String name, String notes) {
+        this.id = id;
+        this.name = name;
+        this.notes = notes;
+    }
+
     /**
      * Returns the ID of the contact.
      *
@@ -11,7 +20,7 @@ public class ContactImpl implements Contact {
      */
     //@Override
     public int getId() {
-        throw new NotImplementedException();
+        return id;
     }
 
     /**
@@ -23,7 +32,6 @@ public class ContactImpl implements Contact {
     public String getName() {
         throw new NotImplementedException();
     }
-
     /**
      * Returns our notes about the contact, if any.
      * <p>
