@@ -73,6 +73,12 @@ public class ContactImplTest {
     }
 
     @Test
+    public void testEmptyStringForNote() {
+        contact0 = new ContactImpl(1, name1, "");
+        assertEquals("", contact0.getNotes());
+    }
+
+    @Test
     public void testAddNotes() throws Exception {
 
     }
