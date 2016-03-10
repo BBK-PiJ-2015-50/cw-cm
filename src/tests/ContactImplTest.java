@@ -24,7 +24,7 @@ public class ContactImplTest {
 
     @Test
     public void testGetName() throws Exception {
-
+        assertEquals(name1, contact1.getName());
     }
 
     @Test
