@@ -10,13 +10,15 @@ public class ContactImpl implements Contact {
     private String name, notes;
 
     public ContactImpl(int id, String name, String notes) {
+        if (name == null) {
+            throw new NullPointerException();
+        }
         if (id <= 0) {
             throw new IllegalArgumentException();
-        } else {
-            this.id = id;
-            this.name = name;
-            this.notes = notes;
         }
+        this.id = id;
+        this.name = name;
+        this.notes = notes;
     }
 
     public ContactImpl(int id, String name) {
