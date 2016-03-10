@@ -56,6 +56,11 @@ public class ContactImplTest {
         contact0 = new ContactImpl(-1, name1);
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testNullNameThrowsNullPointerException() {
+        contact0 = new ContactImpl(1, null);
+    }
+
     @Test
     public void testAddNotes() throws Exception {
 
