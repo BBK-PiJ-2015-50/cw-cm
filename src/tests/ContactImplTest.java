@@ -51,6 +51,11 @@ public class ContactImplTest {
         contact0 = new ContactImpl(0, name1);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testNegativeIdThrowsIllegalArgumentException() {
+        contact0 = new ContactImpl(-1, name1);
+    }
+
     @Test
     public void testAddNotes() throws Exception {
 
