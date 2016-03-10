@@ -26,6 +26,7 @@ public class ContactImplTest {
         assertEquals(id1, contact1.getId());
     }
 
+    @Test
     public void testGetIdWith2Parameters() {
         assertEquals(id2, contact2.getId());
     }
