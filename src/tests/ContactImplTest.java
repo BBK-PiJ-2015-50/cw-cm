@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
  * Created by Chris Kimberley on 09/03/2016.
  */
 public class ContactImplTest {
-    private Contact contact1, contact2;
+    private Contact contact0, contact1, contact2;
     private int id1, id2;
     private String name1, name2, notes1, notes2;
 
@@ -44,6 +44,11 @@ public class ContactImplTest {
     @Test
     public void testGetNotes() {
         assertEquals(notes1, contact1.getNotes());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testZeroIdThrowsIllegalArgumentException() {
+        contact0 = new ContactImpl(0, name1);
     }
 
     @Test
