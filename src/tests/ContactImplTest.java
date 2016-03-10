@@ -32,8 +32,13 @@ public class ContactImplTest {
     }
 
     @Test
-    public void testGetName() {
+    public void testGetNameWith3Parameters() {
         assertEquals(name1, contact1.getName());
+    }
+
+    @Test
+    public void testGetNameWith2Parameters() {
+        assertEquals(name2, contact2.getName());
     }
 
     @Test
