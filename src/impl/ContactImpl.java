@@ -10,7 +10,7 @@ public class ContactImpl implements Contact {
     private String name, notes;
 
     public ContactImpl(int id, String name, String notes) {
-        if (name == null) {
+        if (name == null || notes == null) {
             throw new NullPointerException();
         }
         if (id <= 0) {
