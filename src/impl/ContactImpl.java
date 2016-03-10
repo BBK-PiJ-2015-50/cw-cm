@@ -15,6 +15,10 @@ public class ContactImpl implements Contact {
         this.notes = notes;
     }
 
+    public ContactImpl(int id, String name) {
+        this(id, name, "");
+    }
+
     public int getId() {
         return id;
     }
