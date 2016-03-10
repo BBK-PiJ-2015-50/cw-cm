@@ -10,7 +10,7 @@ public class ContactImpl implements Contact {
     private String name, notes;
 
     public ContactImpl(int id, String name, String notes) {
-        if (id == 0) {
+        if (id <= 0) {
             throw new IllegalArgumentException();
         } else {
             this.id = id;
