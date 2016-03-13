@@ -79,7 +79,8 @@ public class ContactImplTest {
     }
 
     @Test
-    public void testAddNotes() throws Exception {
-
+    public void testAddEmptyStringToEmptyNote() {
+        contact2.addNotes("");
+        assertEquals("", contact2.getNotes());
     }
 }
