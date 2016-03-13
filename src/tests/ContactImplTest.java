@@ -83,4 +83,10 @@ public class ContactImplTest {
         contact2.addNotes("");
         assertEquals("", contact2.getNotes());
     }
+
+    @Test
+    public void testAddEmptyStringToFirstNote() {
+        contact1.addNotes("");
+        assertEquals("1st note", contact1.getNotes());
+    }
 }
