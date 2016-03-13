@@ -89,4 +89,10 @@ public class ContactImplTest {
         contact1.addNotes("");
         assertEquals("1st note", contact1.getNotes());
     }
+
+    @Test
+    public void testAdd2ndNoteToFirstNote() {
+        contact1.addNotes("2nd note");
+        assertEquals("1st note2nd note", contact1.getNotes());
+    }
 }
