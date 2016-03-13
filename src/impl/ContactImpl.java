@@ -37,12 +37,6 @@ public class ContactImpl implements Contact {
         return notes;
     }
 
-    /**
-     * Add notes about the contact.
-     *
-     * @param note the notes to be added
-     */
-    ///@Override
     public void addNotes(String note) {
         notes += note;
     }
