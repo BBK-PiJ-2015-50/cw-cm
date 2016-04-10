@@ -1,4 +1,3 @@
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +10,7 @@ import static org.junit.Assert.*;
  */
 public class MeetingImplTest {
     private Meeting meeting1;
+    private PastMeetingImpl meeting2;
     private Set<Contact> contacts;
     private Contact contact1;
     private Calendar date;
@@ -74,44 +74,44 @@ public class MeetingImplTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testPastMeetingImplConstructorThrowsIllegalArgumentExceptionForNegativeID() {
-        meeting1 = new PastMeetingImpl(-1, Calendar.getInstance(), contacts, notes);
+        meeting2 = new PastMeetingImpl(-1, Calendar.getInstance(), contacts, notes);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testPastMeetingImplConstructorThrowsIllegalArgumentExceptionForZeroID() {
-        meeting1 = new PastMeetingImpl(0, Calendar.getInstance(), contacts, notes);
+        meeting2 = new PastMeetingImpl(0, Calendar.getInstance(), contacts, notes);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testPastMeetingImplConstructorThrowsIllegalArgumentExceptionForEmptyContacts() {
-        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), Collections.emptySet(), notes);
+        meeting2 = new PastMeetingImpl(1, Calendar.getInstance(), Collections.emptySet(), notes);
     }
 
     @Test (expected = NullPointerException.class)
     public void testPastMeetingImplConstructorThrowsNullPointerExceptionForNullDate() {
-        meeting1 = new PastMeetingImpl(1, null, contacts, notes);
+        meeting2 = new PastMeetingImpl(1, null, contacts, notes);
     }
 
     @Test (expected = NullPointerException.class)
     public void testPastMeetingImplConstructorThrowsNullPointerExceptionForNullContacts() {
-        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), null, notes);
+        meeting2 = new PastMeetingImpl(1, Calendar.getInstance(), null, notes);
     }
 
     @Test
     public void testPastMeetingGetIdReturnsCorrectID() {
-        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, notes);
-        assertEquals(1, meeting1.getId());
+        meeting2 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, notes);
+        assertEquals(1, meeting2.getId());
     }
 
     @Test
     public void testPastMeetingGetDateReturnsCorrectDate() throws Exception {
-        meeting1 = new PastMeetingImpl(1, new GregorianCalendar(2016, 3, 8), contacts, notes);
+        meeting2 = new PastMeetingImpl(1, new GregorianCalendar(2016, 3, 8), contacts, notes);
         assertEquals(new GregorianCalendar(2016, 3, 8), meeting1.getDate());
     }
 
     @Test
     public void testPastMeetingGetContactsReturnsCorrectContacts() {
-        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, notes);
+        meeting2 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, notes);
         assertEquals(contacts, meeting1.getContacts());
     }
 
@@ -120,13 +120,12 @@ public class MeetingImplTest {
      */
     @Test (expected = NullPointerException.class)
     public void testPastMeetingImplConstructorThrowsNullPointerExceptionForNullNotes() {
-        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, null);
+        meeting2 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, null);
     }
 
     @Test
     public void testPastMeetingGetContactsReturnsCorrectNotes() {
-        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, notes);
-        assertEquals(notes, meeting1.getNotes());
+        meeting2 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, notes);
+        assertEquals(notes, meeting2.getNotes());
     }
-
 }
