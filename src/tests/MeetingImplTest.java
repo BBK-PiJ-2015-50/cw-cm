@@ -2,10 +2,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -16,12 +13,14 @@ public class MeetingImplTest {
     private Meeting meeting1;
     private Set<Contact> contacts;
     private Contact contact1;
+    private Calendar date;
 
     @Before
     public void setUp() {
         contacts = new HashSet<>();
         contact1 = new ContactImpl(1, "John", "VIP" );
         contacts.add(contact1);
+        date = new GregorianCalendar(2016, 3, 8);
     }
 
     // Tests use FutureMeetingImpl as MeetingImpl is an abstract class
@@ -57,8 +56,9 @@ public class MeetingImplTest {
     }
 
     @Test
-    public void testGetDate() throws Exception {
-
+    public void testGetDateReturnsCorrectDate() throws Exception {
+        meeting1 = new FutureMeetingImpl(1, new GregorianCalendar(2016, 3, 8), contacts);
+        assertEquals(new GregorianCalendar(2016, 3, 8), meeting1.getDate());
     }
 
     @Test
