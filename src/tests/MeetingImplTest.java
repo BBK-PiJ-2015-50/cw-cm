@@ -62,7 +62,8 @@ public class MeetingImplTest {
     }
 
     @Test
-    public void testGetContacts() throws Exception {
-
+    public void testGetContactsReturnsCorrectContacts() {
+        meeting1 = new FutureMeetingImpl(1, Calendar.getInstance(), contacts);
+        assertEquals(contacts, meeting1.getContacts());
     }
 }
