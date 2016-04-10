@@ -8,7 +8,7 @@ import java.util.Set;
  *
  * @see Meeting
  */
-public class MeetingImpl implements Meeting {
+public abstract class MeetingImpl implements Meeting {
     private int id;
     private Calendar date;
     private Set<Contact> contacts;

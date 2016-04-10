@@ -24,6 +24,7 @@ public class MeetingImplTest {
         contacts.add(contact1);
     }
 
+    // Tests use FutureMeetingImpl as MeetingImpl is an abstract class
     @Test (expected = IllegalArgumentException.class)
     public void testMeetingImplConstructorThrowsIllegalArgumentExceptionForNegativeID() {
         meeting1 = new FutureMeetingImpl(-1, Calendar.getInstance(), contacts);
@@ -49,14 +50,10 @@ public class MeetingImplTest {
         meeting1 = new FutureMeetingImpl(1, Calendar.getInstance(), null);
     }
 
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
     @Test
-    public void testGetId() throws Exception {
-
+    public void testGetIdReturnsCorrectID() {
+        meeting1 = new FutureMeetingImpl(1, Calendar.getInstance(), contacts);
+        assertEquals(1, meeting1.getId());
     }
 
     @Test
