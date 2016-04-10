@@ -32,7 +32,7 @@ public abstract class MeetingImpl implements Meeting {
 
     @Override
     public Calendar getDate() {
-        throw new NotImplementedException();
+        return date;
     }
 
     @Override
