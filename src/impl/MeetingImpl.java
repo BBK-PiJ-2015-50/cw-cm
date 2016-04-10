@@ -1,41 +1,36 @@
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.Calendar;
 import java.util.Set;
 
 /**
  * Created by chris on 13/03/2016.
+ *
+ * @see Meeting
  */
 public class MeetingImpl implements Meeting {
-    /**
-     * Returns the id of the meeting.
-     *
-     * @return the id of the meeting.
-     */
+    private int id;
+    private Calendar date;
+    private Set<Contact> contacts;
+
+    public MeetingImpl(int id, Calendar date, Set<Contact> contacts){
+        this.id = id;
+        this.date = date;
+        this.contacts = contacts;
+    }
+
     @Override
     public int getId() {
-        return 0;
+        throw new NotImplementedException();
     }
 
-    /**
-     * Return the date of the meeting.
-     *
-     * @return the date of the meeting.
-     */
     @Override
     public Calendar getDate() {
-        return null;
+        throw new NotImplementedException();
     }
 
-    /**
-     * Return the details of people that attended the meeting.
-     * <p>
-     * The list contains a minimum of one contact (if there were
-     * just two people: the user and the contact) and may contain an
-     * arbitrary number of them.
-     *
-     * @return the details of people that attended the meeting.
-     */
     @Override
     public Set<Contact> getContacts() {
-        return null;
+        throw new NotImplementedException();
     }
 }
