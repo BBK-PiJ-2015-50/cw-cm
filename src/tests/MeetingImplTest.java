@@ -39,6 +39,16 @@ public class MeetingImplTest {
         meeting1 = new FutureMeetingImpl(1, Calendar.getInstance(), Collections.emptySet());
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testMeetingImplConstructorThrowsNullPointerExceptionForNullDate() {
+        meeting1 = new FutureMeetingImpl(1, null, contacts);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMeetingImplConstructorThrowsNullPointerExceptionForNullContacts() {
+        meeting1 = new FutureMeetingImpl(1, Calendar.getInstance(), null);
+    }
+
     @After
     public void tearDown() throws Exception {
 
