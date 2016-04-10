@@ -123,4 +123,10 @@ public class MeetingImplTest {
         meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, null);
     }
 
+    @Test
+    public void testPastMeetingGetContactsReturnsCorrectNotes() {
+        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, notes);
+        assertEquals(notes, meeting1.getNotes());
+    }
+
 }
