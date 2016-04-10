@@ -37,6 +37,6 @@ public abstract class MeetingImpl implements Meeting {
 
     @Override
     public Set<Contact> getContacts() {
-        throw new NotImplementedException();
+        return contacts;
     }
 }
