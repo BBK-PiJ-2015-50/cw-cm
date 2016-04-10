@@ -120,7 +120,7 @@ public class MeetingImplTest {
      */
     @Test (expected = NullPointerException.class)
     public void testPastMeetingImplConstructorThrowsNullPointerExceptionForNullNotes() {
-        meeting1 = new PastMeetingImpl(1, null, contacts, notes);
+        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, null);
     }
 
 }
