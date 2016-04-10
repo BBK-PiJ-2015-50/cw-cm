@@ -13,7 +13,10 @@ public class MeetingImpl implements Meeting {
     private Calendar date;
     private Set<Contact> contacts;
 
-    public MeetingImpl(int id, Calendar date, Set<Contact> contacts){
+    public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
+        if (id <= 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
         this.date = date;
         this.contacts = contacts;

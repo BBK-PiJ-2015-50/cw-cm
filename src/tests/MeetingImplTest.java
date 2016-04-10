@@ -26,8 +26,12 @@ public class MeetingImplTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testMeetingImplConstructorThrowsIllegalArgumentExceptionForNegativeID() {
-        //meeting1 = new FutureMeetingImpl(-1, Calendar.getInstance(), contacts);
-        meeting1 = new FutureMeetingImpl();
+        meeting1 = new FutureMeetingImpl(-1, Calendar.getInstance(), contacts);
+     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testMeetingImplConstructorThrowsIllegalArgumentExceptionForZeroID() {
+        meeting1 = new FutureMeetingImpl(0, Calendar.getInstance(), contacts);
     }
 
     @After
