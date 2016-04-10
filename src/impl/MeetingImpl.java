@@ -17,6 +17,9 @@ public class MeetingImpl implements Meeting {
         if (id <= 0 || contacts.isEmpty()) {
             throw new IllegalArgumentException();
         }
+        if (date == null || contacts == null) {
+            throw new NullPointerException();
+        }
         this.id = id;
         this.date = date;
         this.contacts = contacts;
