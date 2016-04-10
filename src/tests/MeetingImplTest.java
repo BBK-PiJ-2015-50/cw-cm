@@ -34,6 +34,11 @@ public class MeetingImplTest {
         meeting1 = new FutureMeetingImpl(0, Calendar.getInstance(), contacts);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testMeetingImplConstructorThrowsIllegalArgumentExceptionForEmptyContacts() {
+        meeting1 = new FutureMeetingImpl(1, Calendar.getInstance(), Collections.emptySet());
+    }
+
     @After
     public void tearDown() throws Exception {
 
