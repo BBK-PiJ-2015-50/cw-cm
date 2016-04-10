@@ -66,4 +66,48 @@ public class MeetingImplTest {
         meeting1 = new FutureMeetingImpl(1, Calendar.getInstance(), contacts);
         assertEquals(contacts, meeting1.getContacts());
     }
+
+    // Previous tests now duplicated for PastMeetingImpl
+    @Test (expected = IllegalArgumentException.class)
+    public void testPastMeetingImplConstructorThrowsIllegalArgumentExceptionForNegativeID() {
+        meeting1 = new PastMeetingImpl(-1, Calendar.getInstance(), contacts);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testPastMeetingImplConstructorThrowsIllegalArgumentExceptionForZeroID() {
+        meeting1 = new PastMeetingImpl(0, Calendar.getInstance(), contacts);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testPastMeetingImplConstructorThrowsIllegalArgumentExceptionForEmptyContacts() {
+        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), Collections.emptySet());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testPastMeetingImplConstructorThrowsNullPointerExceptionForNullDate() {
+        meeting1 = new PastMeetingImpl(1, null, contacts);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testPastMeetingImplConstructorThrowsNullPointerExceptionForNullContacts() {
+        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), null);
+    }
+
+    @Test
+    public void testPastMeetingGetIdReturnsCorrectID() {
+        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts);
+        assertEquals(1, meeting1.getId());
+    }
+
+    @Test
+    public void testPastMeetingGetDateReturnsCorrectDate() throws Exception {
+        meeting1 = new PastMeetingImpl(1, new GregorianCalendar(2016, 3, 8), contacts);
+        assertEquals(new GregorianCalendar(2016, 3, 8), meeting1.getDate());
+    }
+
+    @Test
+    public void testPastMeetingGetContactsReturnsCorrectContacts() {
+        meeting1 = new PastMeetingImpl(1, Calendar.getInstance(), contacts);
+        assertEquals(contacts, meeting1.getContacts());
+    }
 }

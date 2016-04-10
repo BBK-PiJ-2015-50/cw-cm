@@ -3,9 +3,9 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 /**
- * Created by chris on 09/04/2016.
+ * Created by chris on 10/04/2016.
  */
-public class FutureMeetingImplTest {
+public class PastMeetingImplTest {
 
     @Before
     public void setUp() throws Exception {
