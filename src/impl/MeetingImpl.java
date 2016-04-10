@@ -14,7 +14,7 @@ public class MeetingImpl implements Meeting {
     private Set<Contact> contacts;
 
     public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
-        if (id <= 0) {
+        if (id <= 0 || contacts.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.id = id;
