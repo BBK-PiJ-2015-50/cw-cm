@@ -11,6 +11,9 @@ import java.util.Set;
 public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
     public PastMeetingImpl(int id, Calendar date, Set<Contact> contacts, String notes){
         super(id, date, contacts);
+        if (notes == null) {
+            throw new NullPointerException();
+        }
     }
 
     public String getNotes() {
