@@ -27,7 +27,7 @@ public abstract class MeetingImpl implements Meeting {
 
     @Override
     public int getId() {
-        throw new NotImplementedException();
+        return id;
     }
 
     @Override
