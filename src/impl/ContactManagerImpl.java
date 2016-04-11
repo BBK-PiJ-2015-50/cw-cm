@@ -1,4 +1,5 @@
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
@@ -8,13 +9,19 @@ import java.util.Set;
  * @see ContactManager
  */
 public class ContactManagerImpl implements ContactManager {
+    private Calendar currentTime;
 
-
+    public ContactManagerImpl() {
+        currentTime = new GregorianCalendar();
+    }
 
     @Override
     public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
         if (contacts == null || date == null) {
             throw new NullPointerException();
+        }
+        if (date.before(new GregorianCalendar())) {
+            throw new IllegalArgumentException();
         }
         return -1;
     }

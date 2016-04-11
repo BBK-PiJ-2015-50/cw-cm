@@ -15,8 +15,8 @@ public class ContactManagerImplTest {
     private ContactManager cManager1;
     private Set<Contact> contactSet1;
     private Contact contact1;
-    private final Calendar currentTime = new GregorianCalendar(2016, 3, 8, 10, 30, 59);
-    private final Calendar pastTime = new GregorianCalendar(2015, 3, 8, 10, 30, 59);
+    private Calendar currentTime;
+    private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
 
     @Before
     public void setUp() {
@@ -24,6 +24,7 @@ public class ContactManagerImplTest {
         contactSet1 = new HashSet<>();
         contact1 = new ContactImpl(1, "Adam", "Note about Adam");
         contactSet1.add(contact1);
+        currentTime = new GregorianCalendar();
     }
 
     @Test (expected = NullPointerException.class)
