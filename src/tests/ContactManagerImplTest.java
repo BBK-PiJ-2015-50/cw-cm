@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,8 @@ public class ContactManagerImplTest {
     private ContactManager cManager1;
     private Set<Contact> contactSet1;
     private Contact contact1;
+    private final Calendar currentTime = new GregorianCalendar(2016, 3, 8, 10, 30, 59);
+    private final Calendar pastTime = new GregorianCalendar(2015, 3, 8, 10, 30, 59);
 
     @Before
     public void setUp() {
@@ -31,6 +34,11 @@ public class ContactManagerImplTest {
     @Test (expected = NullPointerException.class)
     public void testAddFutureMeetingThrowsNullPointerExceptionForNullDate() {
         cManager1.addFutureMeeting(contactSet1, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddFutureMeetingThrowsIllegalArgumentExceptionForTimeInPast() {
+        cManager1.addFutureMeeting(contactSet1, pastTime);
     }
 
     @Test
