@@ -9,15 +9,16 @@ import static org.junit.Assert.*;
  * Created by chris on 11/04/2016.
  */
 public class ContactManagerImplTest {
+    private ContactManager cm1;
 
     @Before
-    public void setUp() throws Exception {
-
+    public void setUp() {
+        cm1 = new ContactManagerImpl();
     }
 
     @Test (expected = NullPointerException.class)
     public void testAddFutureMeetingThrowsNullPointerExceptionForNullContacts() {
-        addFutureMeeting(null, Calendar.getInstance());
+        cm1.addFutureMeeting(null, Calendar.getInstance());
     }
 
     @Test
