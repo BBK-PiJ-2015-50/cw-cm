@@ -2,6 +2,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -9,16 +11,26 @@ import static org.junit.Assert.*;
  * Created by chris on 11/04/2016.
  */
 public class ContactManagerImplTest {
-    private ContactManager cm1;
+    private ContactManager cManager1;
+    private Set<Contact> contactSet1;
+    private Contact contact1;
 
     @Before
     public void setUp() {
-        cm1 = new ContactManagerImpl();
+        cManager1 = new ContactManagerImpl();
+        contactSet1 = new HashSet<>();
+        contact1 = new ContactImpl(1, "Adam", "Note about Adam");
+        contactSet1.add(contact1);
     }
 
     @Test (expected = NullPointerException.class)
     public void testAddFutureMeetingThrowsNullPointerExceptionForNullContacts() {
-        cm1.addFutureMeeting(null, Calendar.getInstance());
+        cManager1.addFutureMeeting(null, Calendar.getInstance());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testAddFutureMeetingThrowsNullPointerExceptionForNullDate() {
+        cManager1.addFutureMeeting(contactSet1, null);
     }
 
     @Test

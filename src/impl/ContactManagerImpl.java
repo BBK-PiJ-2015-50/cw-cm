@@ -13,7 +13,10 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-        return 0;
+        if (contacts == null) {
+            throw new NullPointerException();
+        }
+        return -1;
     }
 
         @Override
