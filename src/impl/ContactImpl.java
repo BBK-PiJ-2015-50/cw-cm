@@ -1,5 +1,7 @@
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Objects;
+
 /**
  * Created by Chris Kimberley on 08/03/2016.
  *
@@ -41,5 +43,31 @@ public class ContactImpl implements Contact {
         notes += note;
     }
 
+    /**
+     * Overriding check for equality of ContactImpl based on id & name
+     *
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        ContactImpl contact = (ContactImpl) obj;
+        return (id == contact.id && Objects.equals(name, contact.name));
+    }
 
+    /**
+     * Also overriding hashCode - based on id & name
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 }
