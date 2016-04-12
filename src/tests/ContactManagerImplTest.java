@@ -43,6 +43,11 @@ public class ContactManagerImplTest {
     }
 
     @Test
+    public void testAddFutureMeetingReturnsPositiveID() {
+        assertTrue((cManager1.addFutureMeeting(contactSet1, Calendar.getInstance())) > 0);
+    }
+
+    @Test
     public void testGetPastMeeting() throws Exception {
 
     }

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
  * Created by Chris Kimberley on 09/03/2016.
  */
 public class ContactImplTest {
-    private Contact contact0, contact1, contact2;
+    private Contact contact0, contact1, contact2, contact1Duplicate;
     private int id1, id2;
     private String name1, name2, notes1, notes2;
 
@@ -15,6 +15,7 @@ public class ContactImplTest {
         name1 = "Joe";
         notes1 = "1st note";
         contact1 = new ContactImpl(id1, name1, notes1);
+        contact1Duplicate = new ContactImpl(id1, name1, notes1);
         id2 = 2;
         name2 = "Bill";
         notes2 = "2nd note";
@@ -100,5 +101,15 @@ public class ContactImplTest {
     public void testAdd2ndNoteToFirstNote() {
         contact1.addNotes("2nd note");
         assertEquals("1st note2nd note", contact1.getNotes());
+    }
+
+    @Test
+    public void testEqualityOfContactCheckForDifferentContacts() {
+        assertFalse(contact1.equals(contact2));
+    }
+
+    @Test
+    public void testEqualityOfContactCheckForEqualContacts() {
+        assertTrue(contact1.equals(contact1Duplicate));
     }
 }
