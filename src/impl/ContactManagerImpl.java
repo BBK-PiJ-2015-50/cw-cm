@@ -1,7 +1,4 @@
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by chris on 11/04/2016.
@@ -9,9 +6,13 @@ import java.util.Set;
  * @see ContactManager
  */
 public class ContactManagerImpl implements ContactManager {
+    private Set<Contact> contactSet;
+    private int contactId;
     private Calendar currentTime;
 
     public ContactManagerImpl() {
+        contactSet = new HashSet<>();
+        contactId = 1;
         currentTime = new GregorianCalendar();
     }
 
@@ -74,8 +75,10 @@ public class ContactManagerImpl implements ContactManager {
         if (name == null || notes == null) {
             throw new NullPointerException();
         }
-        // placeholder return value
-        return -1;
+        contactSet.add(new ContactImpl(contactId, name, notes));
+        int id = contactId;
+        contactId++;
+        return id;
     }
 
     @Override

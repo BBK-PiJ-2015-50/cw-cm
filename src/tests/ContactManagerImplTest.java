@@ -17,7 +17,7 @@ public class ContactManagerImplTest {
     private Contact contact01, contact02, contact03, contact04, contact05, contact11, contact12;
     private Calendar currentTime;
     private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
-    private String name01, note01;
+    private String name01, note01, name02, note02;
 
     @Before
     public void setUp() {
@@ -37,6 +37,8 @@ public class ContactManagerImplTest {
 
         name01 = "Adam";
         note01 = "Note about Adam";
+        name02 = "Bruce";
+        note02 = "Note about Bruce";
 
         contactSet2 = new HashSet<>();
         contact11 = new ContactImpl(11, "Karl", "Note about Karl");
@@ -135,10 +137,10 @@ public class ContactManagerImplTest {
         cManager1.addNewContact(name01, null);
     }
 
-    // test for return ID of -1: replace when ID fully implemented
     @Test
-    public void testAddNewContact() {
-        assertEquals(-1, cManager1.addNewContact(name01, note01));
+    public void testAdd2NewContacts() {
+        assertEquals(1, cManager1.addNewContact(name01, note01));
+        assertEquals(2, cManager1.addNewContact(name02, note02));
     }
 
     @Test
