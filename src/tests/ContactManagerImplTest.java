@@ -135,9 +135,10 @@ public class ContactManagerImplTest {
         cManager1.addNewContact(name01, null);
     }
 
+    // test for return ID of -1: replace when ID fully implemented
     @Test
-    public void testAddNewContact() throws Exception {
-
+    public void testAddNewContact() {
+        assertEquals(-1, cManager1.addNewContact(name01, note01));
     }
 
     @Test
