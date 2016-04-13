@@ -125,6 +125,16 @@ public class ContactManagerImplTest {
         cManager1.addNewContact(name01, "");
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testNullForNameThrowsNullPointerException() {
+        cManager1.addNewContact(null, note01);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testNullForNotesThrowsNullPointerException() {
+        cManager1.addNewContact(name01, null);
+    }
+
     @Test
     public void testAddNewContact() throws Exception {
 
