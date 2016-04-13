@@ -17,7 +17,7 @@ public class ContactManagerImplTest {
     private Contact contact01, contact02, contact03, contact04, contact05, contact11, contact12;
     private Calendar currentTime;
     private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
-    private String name01, note01, name02, note02;
+    private String name01, note01, name02, note02, name03, note03;
 
     @Before
     public void setUp() {
@@ -39,6 +39,8 @@ public class ContactManagerImplTest {
         note01 = "Note about Adam";
         name02 = "Bruce";
         note02 = "Note about Bruce";
+        name03 = "Claire";
+        note03 = "Note about Claire";
 
         contactSet2 = new HashSet<>();
         contact11 = new ContactImpl(11, "Karl", "Note about Karl");
@@ -154,8 +156,26 @@ public class ContactManagerImplTest {
 
     @Test
     public void testGetContactsEmptyStringReturnsAllCurrentContacts() {
-        Set<Contact> testContactSet = cManager1.getContacts("");
+        Set<Contact> testContactSet;
+        testContactSet = cManager1.getContacts("");
         assertEquals(testContactSet.size(), 0);
+
+        cManager1.addNewContact(name01, note01);
+        testContactSet = cManager1.getContacts("");
+        assertEquals(testContactSet.size(), 1);
+
+        cManager1.addNewContact(name02, note02);
+        testContactSet = cManager1.getContacts("");
+        assertEquals(testContactSet.size(), 2);
+    }
+
+    @Test
+    public void testGetContactsReturnsContactsWithNamesContainingSpecifiedString() {
+        cManager1.addNewContact(name01, note01);
+        cManager1.addNewContact(name02, note02);
+        cManager1.addNewContact(name03, note03);
+        Set<Contact> testContactSet = cManager1.getContacts(name02);
+        assertEquals(testContactSet.size(), 1);
     }
 
     @Test
