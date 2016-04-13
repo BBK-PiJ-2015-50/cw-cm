@@ -118,29 +118,38 @@ public class ContactManagerImplTest {
      * addNewContact tests
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testEmptyStringForNameThrowsIllegalArgumentException() {
+    public void testAddNewContactEmptyStringForNameThrowsIllegalArgumentException() {
         cManager1.addNewContact("", note01);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testEmptyStringForNotesThrowsIllegalArgumentException() {
+    public void testAddNewContactEmptyStringForNotesThrowsIllegalArgumentException() {
         cManager1.addNewContact(name01, "");
     }
 
     @Test (expected = NullPointerException.class)
-    public void testNullForNameThrowsNullPointerException() {
+    public void testAddNewContactNullNameThrowsNullPointerException() {
         cManager1.addNewContact(null, note01);
     }
 
     @Test (expected = NullPointerException.class)
-    public void testNullForNotesThrowsNullPointerException() {
+    public void testAddNewContactNullNotesThrowsNullPointerException() {
         cManager1.addNewContact(name01, null);
     }
 
     @Test
-    public void testAdd2NewContacts() {
+    public void testAddNewContactAdd2NewContactsReturnsCorrectIDs() {
         assertEquals(1, cManager1.addNewContact(name01, note01));
         assertEquals(2, cManager1.addNewContact(name02, note02));
+    }
+
+    /**
+     * getContacts(String name) tests
+     */
+    @Test (expected = NullPointerException.class)
+    public void testGetContactsNullNameThrowsNullPointerException() {
+        String nullString = null;
+        cManager1.getContacts(nullString);
     }
 
     @Test
