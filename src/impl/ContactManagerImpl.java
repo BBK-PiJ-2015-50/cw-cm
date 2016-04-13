@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by chris on 11/04/2016.
@@ -88,9 +89,8 @@ public class ContactManagerImpl implements ContactManager {
         }
         if (name.equals("")) {
             return contactSet;
-        } else {
-            return null;
         }
+        return contactSet.stream().filter(c -> c.getName().contains(name)).collect(Collectors.toSet());
     }
 
     @Override
