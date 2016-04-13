@@ -68,7 +68,7 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public int addNewContact(String name, String notes) {
-        if (name.equals("")) {
+        if (name.equals("") || notes.equals("")) {
             throw new IllegalArgumentException();
         }
         // placeholder return value
