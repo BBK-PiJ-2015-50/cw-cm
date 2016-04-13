@@ -13,17 +13,36 @@ import static org.junit.Assert.*;
  */
 public class ContactManagerImplTest {
     private ContactManager cManager1;
-    private Set<Contact> contactSet1;
-    private Contact contact1;
+    private Set<Contact> contactSet1, contactSet2;
+    private Contact contact01, contact02, contact03, contact04, contact05, contact11, contact12;
     private Calendar currentTime;
     private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
+    private String note01;
 
     @Before
     public void setUp() {
         cManager1 = new ContactManagerImpl();
+
         contactSet1 = new HashSet<>();
-        contact1 = new ContactImpl(1, "Adam", "Note about Adam");
-        contactSet1.add(contact1);
+        contact01 = new ContactImpl(1, "Adam", "Note about Adam");
+        contact02 = new ContactImpl(2, "Bruce", "Note about Bruce");
+        contact03 = new ContactImpl(3, "Claire", "Note about Claire");
+        contact04 = new ContactImpl(4, "Dan", "Note about Dan");
+        contact05 = new ContactImpl(5, "Eve", "Note about Eve");
+        contactSet1.add(contact01);
+        contactSet1.add(contact02);
+        contactSet1.add(contact03);
+        contactSet1.add(contact04);
+        contactSet1.add(contact05);
+
+        contactSet2 = new HashSet<>();
+        contact11 = new ContactImpl(11, "Karl", "Note about Karl");
+        contact12 = new ContactImpl(12, "Lisa", "Note about Lisa");
+        contactSet1.add(contact11);
+        contactSet1.add(contact12);
+
+        note01 = "Example note 1";
+
         currentTime = new GregorianCalendar();
     }
 
@@ -46,6 +65,11 @@ public class ContactManagerImplTest {
     public void testAddFutureMeetingReturnsPositiveID() {
         assertTrue((cManager1.addFutureMeeting(contactSet1, Calendar.getInstance())) > 0);
     }
+
+    /*@Test (expected = IllegalArgumentException.class)
+    public void testAddFutureMeetingAddingUnknownContactsThrowsIllegalArgumentException() {
+        cManager1.addFutureMeeting();
+    }*/
 
     @Test
     public void testGetPastMeeting() throws Exception {
@@ -85,6 +109,14 @@ public class ContactManagerImplTest {
     @Test
     public void testAddMeetingNotes() throws Exception {
 
+    }
+
+    /**
+     * addNewContact tests
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testEmptyStringForNameThrowsIllegalArgumentException() {
+        cManager1.addNewContact("", note01);
     }
 
     @Test

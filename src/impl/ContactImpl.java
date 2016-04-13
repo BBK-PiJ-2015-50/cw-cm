@@ -44,7 +44,7 @@ public class ContactImpl implements Contact {
     }
 
     /**
-     * Overriding check for equality of ContactImpl based on id & name
+     * Overriding equals() - based on id & name
      *
      * @param obj
      * @return
