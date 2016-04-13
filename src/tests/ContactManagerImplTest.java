@@ -17,7 +17,7 @@ public class ContactManagerImplTest {
     private Contact contact01, contact02, contact03, contact04, contact05, contact11, contact12;
     private Calendar currentTime;
     private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
-    private String note01;
+    private String name01, note01;
 
     @Before
     public void setUp() {
@@ -35,13 +35,14 @@ public class ContactManagerImplTest {
         contactSet1.add(contact04);
         contactSet1.add(contact05);
 
+        name01 = "Adam";
+        note01 = "Note about Adam";
+
         contactSet2 = new HashSet<>();
         contact11 = new ContactImpl(11, "Karl", "Note about Karl");
         contact12 = new ContactImpl(12, "Lisa", "Note about Lisa");
         contactSet1.add(contact11);
         contactSet1.add(contact12);
-
-        note01 = "Example note 1";
 
         currentTime = new GregorianCalendar();
     }
@@ -117,6 +118,11 @@ public class ContactManagerImplTest {
     @Test (expected = IllegalArgumentException.class)
     public void testEmptyStringForNameThrowsIllegalArgumentException() {
         cManager1.addNewContact("", note01);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testEmptyStringForNotesThrowsIllegalArgumentException() {
+        cManager1.addNewContact(name01, "");
     }
 
     @Test
