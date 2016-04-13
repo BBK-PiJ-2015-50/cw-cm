@@ -153,8 +153,9 @@ public class ContactManagerImplTest {
     }
 
     @Test
-    public void testGetContacts() throws Exception {
-
+    public void testGetContactsEmptyStringReturnsAllCurrentContacts() {
+        Set<Contact> testContactSet = cManager1.getContacts("");
+        assertEquals(testContactSet.size(), 0);
     }
 
     @Test

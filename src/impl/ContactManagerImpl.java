@@ -86,7 +86,11 @@ public class ContactManagerImpl implements ContactManager {
         if (name == null) {
             throw new NullPointerException();
         }
-        return null;
+        if (name.equals("")) {
+            return contactSet;
+        } else {
+            return null;
+        }
     }
 
     @Override
