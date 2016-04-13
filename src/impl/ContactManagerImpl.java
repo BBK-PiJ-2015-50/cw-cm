@@ -26,62 +26,66 @@ public class ContactManagerImpl implements ContactManager {
         return -1;
     }
 
-        @Override
+    @Override
     public PastMeeting getPastMeeting(int id) {
         return null;
     }
 
-        @Override
+    @Override
     public FutureMeeting getFutureMeeting(int id) {
         return null;
     }
 
-        @Override
+    @Override
     public Meeting getMeeting(int id) {
         return null;
     }
 
-        @Override
+    @Override
     public List<Meeting> getFutureMeetingList(Contact contact) {
         return null;
     }
 
-        @Override
+    @Override
     public List<Meeting> getMeetingListOn(Calendar date) {
         return null;
     }
 
-        @Override
+    @Override
     public List<PastMeeting> getPastMeetingListFor(Contact contact) {
         return null;
     }
 
-        @Override
+    @Override
     public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
 
     }
 
-        @Override
+    @Override
     public PastMeeting addMeetingNotes(int id, String text) {
         return null;
     }
 
-        @Override
+    @Override
     public int addNewContact(String name, String notes) {
-        return 0;
+        if (name.equals("")) {
+            throw new IllegalArgumentException();
+        }
+        // placeholder return value
+        return -1;
     }
 
-        @Override
+    @Override
     public Set<Contact> getContacts(String name) {
         return null;
     }
 
-        @Override
+    @Override
     public Set<Contact> getContacts(int... ids) {
         return null;
     }
 
-        @Override
+    @Override
     public void flush() {
 
     }
