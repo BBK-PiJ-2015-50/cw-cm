@@ -71,6 +71,9 @@ public class ContactManagerImpl implements ContactManager {
         if (name.equals("") || notes.equals("")) {
             throw new IllegalArgumentException();
         }
+        if (name == null || notes == null) {
+            throw new NullPointerException();
+        }
         // placeholder return value
         return -1;
     }
