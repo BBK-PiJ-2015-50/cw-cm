@@ -245,6 +245,11 @@ public class ContactManagerImplTest {
         assertEquals(1, cManager2.getContacts(3,3,3,3,3,3).size());
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetContacts1ThrowsIllegalArgumentExceptionForUnknownIDs() {
+        cManager2.getContacts(37);
+    }
+
     @Test
     public void testFlush() throws Exception {
 
