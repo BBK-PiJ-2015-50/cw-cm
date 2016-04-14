@@ -195,7 +195,7 @@ public class ContactManagerImplTest {
     @Test (expected = IllegalArgumentException.class)
     public void testGetContacts1NoIDsProvidedThrowsIllegalArgumentException() {
         int[] ids = new int[0];
-        Set<Contact> testContactSet = cManager1.getContacts(ids);
+        cManager1.getContacts(ids);
     }
 
     @Test

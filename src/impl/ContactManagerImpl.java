@@ -95,6 +95,9 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public Set<Contact> getContacts(int... ids) {
+        if (ids.length == 0) {
+            throw new IllegalArgumentException();
+        }
         return null;
     }
 
