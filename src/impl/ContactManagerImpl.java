@@ -90,7 +90,7 @@ public class ContactManagerImpl implements ContactManager {
         if (name.equals("")) {
             return contactSet;
         }
-        return contactSet.stream().filter(c -> c.getName().contains(name)).collect(Collectors.toSet());
+        return contactSet.parallelStream().filter(c -> c.getName().contains(name)).collect(Collectors.toSet());
     }
 
     @Override

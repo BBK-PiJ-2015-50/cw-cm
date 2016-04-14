@@ -17,7 +17,7 @@ public class ContactManagerImplTest {
     private Contact contact01, contact02, contact03, contact04, contact05, contact11, contact12;
     private Calendar currentTime;
     private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
-    private String name01, note01, name02, note02, name03, note03;
+    private String name01, note01, name02, note02, name03, note03, name12, note12;
 
     @Before
     public void setUp() {
@@ -41,6 +41,8 @@ public class ContactManagerImplTest {
         note02 = "Note about Bruce";
         name03 = "Claire";
         note03 = "Note about Claire";
+        name12 = "Lucette";
+        note12 = "Note about Lucette";
 
         contactSet2 = new HashSet<>();
         contact11 = new ContactImpl(11, "Karl", "Note about Karl");
@@ -171,16 +173,29 @@ public class ContactManagerImplTest {
 
     @Test
     public void testGetContactsReturnsContactsWithNamesContainingSpecifiedString() {
+        /**
+         * Looking for String "uce" in Adam, Bruce & Claire
+         */
         cManager1.addNewContact(name01, note01);
         cManager1.addNewContact(name02, note02);
         cManager1.addNewContact(name03, note03);
-        Set<Contact> testContactSet = cManager1.getContacts(name02);
+        Set<Contact> testContactSet = cManager1.getContacts("uce");
         assertEquals(testContactSet.size(), 1);
+        /**
+         * Adding Lucette and looking again for "uce"
+         */
+        cManager1.addNewContact(name12, note12);
+        testContactSet = cManager1.getContacts("uce");
+        assertEquals(testContactSet.size(), 2);
     }
 
-    @Test
-    public void testGetContacts1() throws Exception {
-
+    /**
+     * getContacts(int... ids) tests
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetContacts1NoIDsProvidedThrowsIllegalArgumentException() {
+        int[] ids = new int[0];
+        Set<Contact> testContactSet = cManager1.getContacts(ids);
     }
 
     @Test
