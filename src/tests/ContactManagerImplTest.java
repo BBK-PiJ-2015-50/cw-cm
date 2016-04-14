@@ -53,6 +53,12 @@ public class ContactManagerImplTest {
         id12 = 12;
         name12 = "Lisa";
         note12 = "Note about Lisa";
+        id21 = 21;
+        name21 = "Uma";
+        note21 = "Note about Uma";
+        id22 = 22;
+        name22 = "Victoria";
+        note22 = "Note about Victoria";
 
         contact01 = new ContactImpl(id01, name01, note01);
         contact02 = new ContactImpl(id02, name02, note02);
@@ -88,8 +94,6 @@ public class ContactManagerImplTest {
         cManager2.addNewContact(name03, note03);
         cManager2.addNewContact(name04, note04);
         cManager2.addNewContact(name05, note05);
-
-        currentTime = new GregorianCalendar();
     }
 
     @Test (expected = NullPointerException.class)
@@ -103,8 +107,38 @@ public class ContactManagerImplTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testAddFutureMeetingThrowsIllegalArgumentExceptionForTimeInPast() {
-        cManager1.addFutureMeeting(contactSet1, pastTime);
+    public void testAddFutureMeetingThrowsIllegalArgumentExceptionForTimeInPastCurrentMinusOneSecond() {
+        Calendar testTime = Calendar.getInstance();
+        testTime.add(Calendar.SECOND, -1);
+        cManager1.addFutureMeeting(contactSet1, testTime);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddFutureMeetingThrowsIllegalArgumentExceptionForTimeInPastCurrentMinusOneMinute() {
+        Calendar testTime = Calendar.getInstance();
+        testTime.add(Calendar.MINUTE, -1);
+        cManager1.addFutureMeeting(contactSet1, testTime);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddFutureMeetingThrowsIllegalArgumentExceptionForTimeInPastCurrentMinusOneYear() {
+        Calendar testTime = Calendar.getInstance();
+        testTime.add(Calendar.YEAR, -1);
+        cManager1.addFutureMeeting(contactSet1, testTime);
+    }
+
+    @Test
+    public void testAddFutureMeetingForTimeInFutureCurrentPlusOneYear() {
+        Calendar testTime = Calendar.getInstance();
+        testTime.add(Calendar.YEAR, 1);
+        cManager1.addFutureMeeting(contactSet1, testTime);
+    }
+
+    @Test
+    public void testAddFutureMeetingForTimeInFutureCurrentPlusOneSecond() {
+        Calendar testTime = Calendar.getInstance();
+        testTime.add(Calendar.SECOND, 1);
+        cManager1.addFutureMeeting(contactSet1, testTime);
     }
 
     @Test
