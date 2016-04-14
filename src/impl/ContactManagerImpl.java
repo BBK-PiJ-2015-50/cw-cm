@@ -8,12 +8,13 @@ import java.util.stream.Collectors;
  */
 public class ContactManagerImpl implements ContactManager {
     private Set<Contact> contactSet;
-    private int contactId;
+    private int contactId, meetingId;
     private Calendar currentTime;
 
     public ContactManagerImpl() {
         contactSet = new HashSet<>();
         contactId = 1;
+        meetingId = 1;
         currentTime = new GregorianCalendar();
     }
 
@@ -25,7 +26,9 @@ public class ContactManagerImpl implements ContactManager {
         if (date.before(new GregorianCalendar())) {
             throw new IllegalArgumentException();
         }
-        return -1;
+        int id = meetingId;
+        meetingId++;
+        return id;
     }
 
     @Override
