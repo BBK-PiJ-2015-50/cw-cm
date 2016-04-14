@@ -13,14 +13,17 @@ import static org.junit.Assert.*;
  */
 public class ContactManagerImplTest {
     private ContactManager cManager1, cManager2;
-    private Set<Contact> contactSet1, contactSet2;
+    private Set<Contact> contactSet1, contactSet2, contactSet3;
     private Calendar currentTime;
     private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
 
-    private Contact contact01, contact02, contact03, contact04, contact05, contact06, contact11, contact12;
-    private int id01,id02, id03, id04, id05, id06, id11, id12;
-    private String name01, name02, name03, name04, name05, name06, name11, name12;
-    private String note01, note02, note03, note04, note05, note06, note11, note12;
+    private Contact contact01, contact02, contact03, contact04, contact05,
+            contact06, contact11, contact12, contact21, contact22;
+    private int id01,id02, id03, id04, id05, id06, id11, id12, id21, id22;
+    private String name01, name02, name03, name04, name05,
+            name06, name11, name12, name21, name22;
+    private String note01, note02, note03, note04, note05,
+            note06, note11, note12, note21, note22;
 
     @Before
     public void setUp() {
@@ -73,6 +76,12 @@ public class ContactManagerImplTest {
         contactSet2.add(contact11);
         contactSet2.add(contact12);
 
+        contactSet3 = new HashSet<>();
+        contact21 = new ContactImpl(id21, name21, note21);
+        contact22 = new ContactImpl(id22, name22, note22);
+        contactSet3.add(contact21);
+        contactSet3.add(contact22);
+
         cManager2 = new ContactManagerImpl();
         cManager2.addNewContact(name01, note01);
         cManager2.addNewContact(name02, note02);
@@ -99,14 +108,20 @@ public class ContactManagerImplTest {
     }
 
     @Test
-    public void testAddFutureMeetingReturnsPositiveID() {
+    public void testAddFutureMeetingReturnsPositiveId() {
         assertTrue((cManager1.addFutureMeeting(contactSet1, Calendar.getInstance())) > 0);
     }
 
-    /*@Test (expected = IllegalArgumentException.class)
-    public void testAddFutureMeetingAddingUnknownContactsThrowsIllegalArgumentException() {
-        cManager1.addFutureMeeting();
-    }*/
+    @Test
+    public void testAddFutureMeetingReturnsCorrectIds() {
+        assertEquals(1, cManager1.addFutureMeeting(contactSet1, Calendar.getInstance()));
+        assertEquals(2, cManager1.addFutureMeeting(contactSet2, Calendar.getInstance()));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddFutureMeetingUnknownContactsThrowsIllegalArgumentException() {
+        cManager1.addFutureMeeting(contactSet3, Calendar.getInstance());
+    }
 
     @Test
     public void testGetPastMeeting() throws Exception {
