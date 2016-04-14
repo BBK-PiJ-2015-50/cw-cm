@@ -15,15 +15,16 @@ public class ContactManagerImpl implements ContactManager {
         contactSet = new HashSet<>();
         contactId = 1;
         meetingId = 1;
-        currentTime = new GregorianCalendar();
+        currentTime = Calendar.getInstance();
     }
 
     @Override
     public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
+        currentTime = Calendar.getInstance();
         if (contacts == null || date == null) {
             throw new NullPointerException();
         }
-        if (date.before(new GregorianCalendar())) {
+        if (date.before(currentTime)) {
             throw new IllegalArgumentException();
         }
         int id = meetingId;
