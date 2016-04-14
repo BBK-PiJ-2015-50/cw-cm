@@ -240,6 +240,12 @@ public class ContactManagerImplTest {
     }
 
     @Test
+    public void testGetContacts1IgnoresDuplicateSuppliedIDs() {
+        assertEquals(3, cManager2.getContacts(1,2,2,4,4).size());
+        assertEquals(1, cManager2.getContacts(3,3,3,3,3,3).size());
+    }
+
+    @Test
     public void testFlush() throws Exception {
 
     }
