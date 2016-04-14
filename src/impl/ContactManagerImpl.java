@@ -98,7 +98,10 @@ public class ContactManagerImpl implements ContactManager {
         if (ids.length == 0) {
             throw new IllegalArgumentException();
         }
-        return null;
+        Set<Contact> correspondingIds = contactSet.parallelStream()
+                .filter(c -> Arrays.stream(ids).parallel().anyMatch(i -> i == c.getId()))
+                .collect(Collectors.toSet());
+        return correspondingIds;
     }
 
     @Override

@@ -234,6 +234,9 @@ public class ContactManagerImplTest {
     @Test
     public void testGetContacts1ReturnsCorrespondingNumberOfContactsForSuppliedIDs() {
         assertEquals(2, cManager2.getContacts(2, 4).size());
+        assertEquals(5, cManager2.getContacts(1,2,3,4,5).size());
+        assertEquals(5, cManager2.getContacts(5,4,3,2,1).size());
+        assertEquals(1, cManager2.getContacts(3).size());
     }
 
     @Test
