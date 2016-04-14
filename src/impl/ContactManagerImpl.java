@@ -99,10 +99,13 @@ public class ContactManagerImpl implements ContactManager {
             throw new IllegalArgumentException();
         }
         Set<Integer> distinctSuppliedIds = Arrays.stream(ids).mapToObj(i -> (Integer) i).collect(Collectors.toSet());
-        Set<Contact> correspondingIds = contactSet.parallelStream()
+        Set<Contact> correspondingContacts = contactSet.parallelStream()
                 .filter(c -> distinctSuppliedIds.parallelStream().anyMatch(i -> i == c.getId()))
                 .collect(Collectors.toSet());
-        return correspondingIds;
+        if (distinctSuppliedIds.size() != correspondingContacts.size()) {
+            throw new IllegalArgumentException();
+        }
+        return correspondingContacts;
     }
 
     @Override

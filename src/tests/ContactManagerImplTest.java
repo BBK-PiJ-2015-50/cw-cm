@@ -226,13 +226,13 @@ public class ContactManagerImplTest {
      * getContacts(int... ids) tests
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testGetContacts1NoIDsProvidedThrowsIllegalArgumentException() {
+    public void testGetContactsByIdNoIDsProvidedThrowsIllegalArgumentException() {
         int[] ids = new int[0];
         cManager1.getContacts(ids);
     }
 
     @Test
-    public void testGetContacts1ReturnsCorrespondingNumberOfContactsForSuppliedIDs() {
+    public void testGetContactsByIdReturnsCorrespondingNumberOfContactsForSuppliedIDs() {
         assertEquals(2, cManager2.getContacts(2, 4).size());
         assertEquals(5, cManager2.getContacts(1,2,3,4,5).size());
         assertEquals(5, cManager2.getContacts(5,4,3,2,1).size());
@@ -240,14 +240,16 @@ public class ContactManagerImplTest {
     }
 
     @Test
-    public void testGetContacts1IgnoresDuplicateSuppliedIDs() {
+    public void testGetContactsByIdIgnoresDuplicateSuppliedIDs() {
         assertEquals(3, cManager2.getContacts(1,2,2,4,4).size());
         assertEquals(1, cManager2.getContacts(3,3,3,3,3,3).size());
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testGetContacts1ThrowsIllegalArgumentExceptionForUnknownIDs() {
+    public void testGetContactsByIdThrowsIllegalArgumentExceptionForUnknownIDs() {
         cManager2.getContacts(37);
+        cManager2.getContacts(1376, 94, 232);
+        cManager2.getContacts(1376, 94, 1376, 232, 94);
     }
 
     @Test
