@@ -12,43 +12,73 @@ import static org.junit.Assert.*;
  * Created by chris on 11/04/2016.
  */
 public class ContactManagerImplTest {
-    private ContactManager cManager1;
+    private ContactManager cManager1, cManager2;
     private Set<Contact> contactSet1, contactSet2;
-    private Contact contact01, contact02, contact03, contact04, contact05, contact11, contact12;
     private Calendar currentTime;
     private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
-    private String name01, note01, name02, note02, name03, note03, name12, note12;
+
+    private Contact contact01, contact02, contact03, contact04, contact05, contact06, contact11, contact12;
+    private int id01,id02, id03, id04, id05, id06, id11, id12;
+    private String name01, name02, name03, name04, name05, name06, name11, name12;
+    private String note01, note02, note03, note04, note05, note06, note11, note12;
 
     @Before
     public void setUp() {
         cManager1 = new ContactManagerImpl();
 
+        id01 = 1;
+        name01 = "Adam";
+        note01 = "Note about Adam";
+        id02 = 2;
+        name02 = "Bruce";
+        note02 = "Note about Bruce";
+        id03 = 3;
+        name03 = "Claire";
+        note03 = "Note about Claire";
+        id04 = 4;
+        name04 = "Dan";
+        note04 = "Note about Dan";
+        id05 = 5;
+        name05 = "Eve";
+        note05 = "Note about Eve";
+        id06 = 6;
+        name06 = "Lucette";
+        note06 = "Note about Lucette";
+        id11 = 11;
+        name11 = "Karl";
+        note11 = "Note about Karl";
+        id12 = 12;
+        name12 = "Lisa";
+        note12 = "Note about Lisa";
+
+        contact01 = new ContactImpl(id01, name01, note01);
+        contact02 = new ContactImpl(id02, name02, note02);
+        contact03 = new ContactImpl(id03, name03, note03);
+        contact04 = new ContactImpl(id04, name04, note04);
+        contact05 = new ContactImpl(id05, name05, note05);
+        contact06 = new ContactImpl(id06, name06, note06);
+        contact11 = new ContactImpl(id11, name11, note11);
+        contact12 = new ContactImpl(id12, name12, note12);
+
         contactSet1 = new HashSet<>();
-        contact01 = new ContactImpl(1, "Adam", "Note about Adam");
-        contact02 = new ContactImpl(2, "Bruce", "Note about Bruce");
-        contact03 = new ContactImpl(3, "Claire", "Note about Claire");
-        contact04 = new ContactImpl(4, "Dan", "Note about Dan");
-        contact05 = new ContactImpl(5, "Eve", "Note about Eve");
         contactSet1.add(contact01);
         contactSet1.add(contact02);
         contactSet1.add(contact03);
         contactSet1.add(contact04);
         contactSet1.add(contact05);
 
-        name01 = "Adam";
-        note01 = "Note about Adam";
-        name02 = "Bruce";
-        note02 = "Note about Bruce";
-        name03 = "Claire";
-        note03 = "Note about Claire";
-        name12 = "Lucette";
-        note12 = "Note about Lucette";
-
         contactSet2 = new HashSet<>();
-        contact11 = new ContactImpl(11, "Karl", "Note about Karl");
-        contact12 = new ContactImpl(12, "Lisa", "Note about Lisa");
-        contactSet1.add(contact11);
-        contactSet1.add(contact12);
+        contact11 = new ContactImpl(id11, name11, note11);
+        contact12 = new ContactImpl(id12, name12, note12);
+        contactSet2.add(contact11);
+        contactSet2.add(contact12);
+
+        cManager2 = new ContactManagerImpl();
+        cManager2.addNewContact(name01, note01);
+        cManager2.addNewContact(name02, note02);
+        cManager2.addNewContact(name03, note03);
+        cManager2.addNewContact(name04, note04);
+        cManager2.addNewContact(name05, note05);
 
         currentTime = new GregorianCalendar();
     }
@@ -145,6 +175,9 @@ public class ContactManagerImplTest {
     public void testAddNewContactAdd2NewContactsReturnsCorrectIDs() {
         assertEquals(1, cManager1.addNewContact(name01, note01));
         assertEquals(2, cManager1.addNewContact(name02, note02));
+        Set<Contact> testContactSet;
+        testContactSet = cManager1.getContacts("");
+        System.out.println("Size of testContactSet = " + testContactSet.size());
     }
 
     /**
@@ -184,7 +217,7 @@ public class ContactManagerImplTest {
         /**
          * Adding Lucette and looking again for "uce"
          */
-        cManager1.addNewContact(name12, note12);
+        cManager1.addNewContact(name06, note06);
         testContactSet = cManager1.getContacts("uce");
         assertEquals(testContactSet.size(), 2);
     }
@@ -196,6 +229,11 @@ public class ContactManagerImplTest {
     public void testGetContacts1NoIDsProvidedThrowsIllegalArgumentException() {
         int[] ids = new int[0];
         cManager1.getContacts(ids);
+    }
+
+    @Test
+    public void testGetContacts1ReturnsCorrespondingNumberOfContactsForSuppliedIDs() {
+        assertEquals(2, cManager2.getContacts(2, 4).size());
     }
 
     @Test
