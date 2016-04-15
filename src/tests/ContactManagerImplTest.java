@@ -142,10 +142,12 @@ public class ContactManagerImplTest {
     }
 
     @Test
-    public void testAddFutureMeetingAddMeetingToList() {
-
+    public void testAddFutureMeetingsGetMeetings() {
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        cManager1.addFutureMeeting(contactSet2, futureTime);
+        Meeting fMeeting1 = cManager1.getMeeting(1);
+        Meeting fMeeting2 = cManager1.getMeeting(2);
     }
-
 
     @Test
     public void testGetPastMeeting() throws Exception {

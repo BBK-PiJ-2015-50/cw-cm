@@ -1,3 +1,5 @@
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,7 +55,7 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public Meeting getMeeting(int id) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
