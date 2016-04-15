@@ -14,12 +14,13 @@ import static org.junit.Assert.*;
 public class ContactManagerImplTest {
     private ContactManager cManager1, cManager2;
     private Set<Contact> contactSet1, contactSet2, contactSet3;
-    private Calendar testTime, futureTime;
+    private Calendar testTime, futureTime, pastTime;
 
     private Contact contact01, contact02, contact03, contact04, contact05, contact12, contact21, contact22;
     private int id01,id02, id03, id04, id05, id12, id21, id22;
     private String name01, name02, name03, name04, name05, name12, name21, name22;
     private String note01, note02, note03, note04, note05, note12, note21, note22;
+    private String text01;
 
     @Before
     public void setUp() {
@@ -83,11 +84,15 @@ public class ContactManagerImplTest {
         cManager1.addNewContact(name04, note04);
         cManager1.addNewContact(name05, note05);
 
+        text01 = "Text about Meeting 1";
+
         cManager2 = new ContactManagerImpl();
 
         testTime = Calendar.getInstance();
         futureTime = Calendar.getInstance();
         futureTime.add(Calendar.MONTH, 1);
+        pastTime = Calendar.getInstance();
+        pastTime.add(Calendar.MONTH, -1);
     }
 
     @Test (expected = NullPointerException.class)
@@ -164,9 +169,10 @@ public class ContactManagerImplTest {
 
     }
 
-    @Test
-    public void testGetFutureMeeting() throws Exception {
-
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetFutureMeetingThrowsIllegalArgumentExceptionForMeetingInPast() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
+        cManager1.getFutureMeeting(1);
     }
 
     @Test

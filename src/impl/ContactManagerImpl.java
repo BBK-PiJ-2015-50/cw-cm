@@ -45,12 +45,12 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public PastMeeting getPastMeeting(int id) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public FutureMeeting getFutureMeeting(int id) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
-
+        throw new NotImplementedException();
     }
 
     @Override
