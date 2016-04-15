@@ -14,20 +14,15 @@ import static org.junit.Assert.*;
 public class ContactManagerImplTest {
     private ContactManager cManager1, cManager2;
     private Set<Contact> contactSet1, contactSet2, contactSet3;
-    private Calendar currentTime;
-    private final Calendar pastTime = new GregorianCalendar(2016, 2, 8);
+    private Calendar testTime, futureTime;
 
-    private Contact contact01, contact02, contact03, contact04, contact05,
-            contact06, contact11, contact12, contact21, contact22;
-    private int id01,id02, id03, id04, id05, id06, id11, id12, id21, id22;
-    private String name01, name02, name03, name04, name05,
-            name06, name11, name12, name21, name22;
-    private String note01, note02, note03, note04, note05,
-            note06, note11, note12, note21, note22;
+    private Contact contact01, contact02, contact03, contact04, contact05, contact12, contact21, contact22;
+    private int id01,id02, id03, id04, id05, id12, id21, id22;
+    private String name01, name02, name03, name04, name05, name12, name21, name22;
+    private String note01, note02, note03, note04, note05, note12, note21, note22;
 
     @Before
     public void setUp() {
-        cManager1 = new ContactManagerImpl();
 
         id01 = 1;
         name01 = "Adam";
@@ -44,15 +39,10 @@ public class ContactManagerImplTest {
         id05 = 5;
         name05 = "Eve";
         note05 = "Note about Eve";
-        id06 = 6;
-        name06 = "Lucette";
-        note06 = "Note about Lucette";
-        id11 = 11;
-        name11 = "Karl";
-        note11 = "Note about Karl";
         id12 = 12;
-        name12 = "Lisa";
-        note12 = "Note about Lisa";
+        name12 = "Lucette";
+        note12 = "Note about Lucette";
+
         id21 = 21;
         name21 = "Uma";
         note21 = "Note about Uma";
@@ -65,40 +55,44 @@ public class ContactManagerImplTest {
         contact03 = new ContactImpl(id03, name03, note03);
         contact04 = new ContactImpl(id04, name04, note04);
         contact05 = new ContactImpl(id05, name05, note05);
-        contact06 = new ContactImpl(id06, name06, note06);
-        contact11 = new ContactImpl(id11, name11, note11);
+
         contact12 = new ContactImpl(id12, name12, note12);
 
         contactSet1 = new HashSet<>();
         contactSet1.add(contact01);
         contactSet1.add(contact02);
         contactSet1.add(contact03);
-        contactSet1.add(contact04);
-        contactSet1.add(contact05);
 
         contactSet2 = new HashSet<>();
-        contact11 = new ContactImpl(id11, name11, note11);
-        contact12 = new ContactImpl(id12, name12, note12);
-        contactSet2.add(contact11);
-        contactSet2.add(contact12);
+        contactSet2.add(contact04);
+        contactSet2.add(contact05);
 
+        /**
+         * contactSet3 - unknown contacts
+         */
         contactSet3 = new HashSet<>();
         contact21 = new ContactImpl(id21, name21, note21);
         contact22 = new ContactImpl(id22, name22, note22);
         contactSet3.add(contact21);
         contactSet3.add(contact22);
 
+        cManager1 = new ContactManagerImpl();
+        cManager1.addNewContact(name01, note01);
+        cManager1.addNewContact(name02, note02);
+        cManager1.addNewContact(name03, note03);
+        cManager1.addNewContact(name04, note04);
+        cManager1.addNewContact(name05, note05);
+
         cManager2 = new ContactManagerImpl();
-        cManager2.addNewContact(name01, note01);
-        cManager2.addNewContact(name02, note02);
-        cManager2.addNewContact(name03, note03);
-        cManager2.addNewContact(name04, note04);
-        cManager2.addNewContact(name05, note05);
+
+        testTime = Calendar.getInstance();
+        futureTime = Calendar.getInstance();
+        futureTime.add(Calendar.MONTH, 1);
     }
 
     @Test (expected = NullPointerException.class)
     public void testAddFutureMeetingThrowsNullPointerExceptionForNullContacts() {
-        cManager1.addFutureMeeting(null, Calendar.getInstance());
+        cManager1.addFutureMeeting(null, futureTime);
     }
 
     @Test (expected = NullPointerException.class)
@@ -108,54 +102,50 @@ public class ContactManagerImplTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddFutureMeetingThrowsIllegalArgumentExceptionForTimeInPastCurrentMinusOneSecond() {
-        Calendar testTime = Calendar.getInstance();
         testTime.add(Calendar.SECOND, -1);
         cManager1.addFutureMeeting(contactSet1, testTime);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddFutureMeetingThrowsIllegalArgumentExceptionForTimeInPastCurrentMinusOneMinute() {
-        Calendar testTime = Calendar.getInstance();
         testTime.add(Calendar.MINUTE, -1);
         cManager1.addFutureMeeting(contactSet1, testTime);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddFutureMeetingThrowsIllegalArgumentExceptionForTimeInPastCurrentMinusOneYear() {
-        Calendar testTime = Calendar.getInstance();
         testTime.add(Calendar.YEAR, -1);
         cManager1.addFutureMeeting(contactSet1, testTime);
     }
 
     @Test
-    public void testAddFutureMeetingForTimeInFutureCurrentPlusOneYear() {
-        Calendar testTime = Calendar.getInstance();
+    public void testAddFutureMeetingReturnsPositiveIdForTimeInFutureCurrentPlusOneYear() {
         testTime.add(Calendar.YEAR, 1);
-        cManager1.addFutureMeeting(contactSet1, testTime);
+        assertTrue((cManager1.addFutureMeeting(contactSet1, testTime)) > 0);
     }
 
     @Test
-    public void testAddFutureMeetingForTimeInFutureCurrentPlusOneSecond() {
-        Calendar testTime = Calendar.getInstance();
+    public void testAddFutureMeetingReturnsPositiveIdForTimeInFutureCurrentPlusOneSecond() {
         testTime.add(Calendar.SECOND, 1);
-        cManager1.addFutureMeeting(contactSet1, testTime);
-    }
-
-    @Test
-    public void testAddFutureMeetingReturnsPositiveId() {
-        assertTrue((cManager1.addFutureMeeting(contactSet1, Calendar.getInstance())) > 0);
+        assertTrue((cManager1.addFutureMeeting(contactSet1, testTime)) > 0);
     }
 
     @Test
     public void testAddFutureMeetingReturnsCorrectIds() {
-        assertEquals(1, cManager1.addFutureMeeting(contactSet1, Calendar.getInstance()));
-        assertEquals(2, cManager1.addFutureMeeting(contactSet2, Calendar.getInstance()));
+        assertEquals(1, cManager1.addFutureMeeting(contactSet1, futureTime));
+        assertEquals(2, cManager1.addFutureMeeting(contactSet2, futureTime));
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddFutureMeetingUnknownContactsThrowsIllegalArgumentException() {
-        cManager1.addFutureMeeting(contactSet3, Calendar.getInstance());
+        cManager1.addFutureMeeting(contactSet3, futureTime);
     }
+
+    @Test
+    public void testAddFutureMeetingAddMeetingToList() {
+
+    }
+
 
     @Test
     public void testGetPastMeeting() throws Exception {
@@ -202,31 +192,29 @@ public class ContactManagerImplTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testAddNewContactEmptyStringForNameThrowsIllegalArgumentException() {
-        cManager1.addNewContact("", note01);
+        cManager2.addNewContact("", note01);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddNewContactEmptyStringForNotesThrowsIllegalArgumentException() {
-        cManager1.addNewContact(name01, "");
+        cManager2.addNewContact(name01, "");
     }
 
     @Test (expected = NullPointerException.class)
     public void testAddNewContactNullNameThrowsNullPointerException() {
-        cManager1.addNewContact(null, note01);
+        cManager2.addNewContact(null, note01);
     }
 
     @Test (expected = NullPointerException.class)
     public void testAddNewContactNullNotesThrowsNullPointerException() {
-        cManager1.addNewContact(name01, null);
+        cManager2.addNewContact(name01, null);
     }
 
     @Test
     public void testAddNewContactAdd2NewContactsReturnsCorrectIDs() {
-        assertEquals(1, cManager1.addNewContact(name01, note01));
-        assertEquals(2, cManager1.addNewContact(name02, note02));
-        Set<Contact> testContactSet;
-        testContactSet = cManager1.getContacts("");
-        System.out.println("Size of testContactSet = " + testContactSet.size());
+        assertEquals(1, cManager2.addNewContact(name01, note01));
+        assertEquals(2, cManager2.addNewContact(name02, note02));
+        Set<Contact> testContactSet = cManager2.getContacts("");
     }
 
     /**
@@ -241,15 +229,15 @@ public class ContactManagerImplTest {
     @Test
     public void testGetContactsEmptyStringReturnsAllCurrentContacts() {
         Set<Contact> testContactSet;
-        testContactSet = cManager1.getContacts("");
+        testContactSet = cManager2.getContacts("");
         assertEquals(testContactSet.size(), 0);
 
-        cManager1.addNewContact(name01, note01);
-        testContactSet = cManager1.getContacts("");
+        cManager2.addNewContact(name01, note01);
+        testContactSet = cManager2.getContacts("");
         assertEquals(testContactSet.size(), 1);
 
-        cManager1.addNewContact(name02, note02);
-        testContactSet = cManager1.getContacts("");
+        cManager2.addNewContact(name02, note02);
+        testContactSet = cManager2.getContacts("");
         assertEquals(testContactSet.size(), 2);
     }
 
@@ -258,16 +246,16 @@ public class ContactManagerImplTest {
         /**
          * Looking for String "uce" in Adam, Bruce & Claire
          */
-        cManager1.addNewContact(name01, note01);
-        cManager1.addNewContact(name02, note02);
-        cManager1.addNewContact(name03, note03);
-        Set<Contact> testContactSet = cManager1.getContacts("uce");
+        cManager2.addNewContact(name01, note01);
+        cManager2.addNewContact(name02, note02);
+        cManager2.addNewContact(name03, note03);
+        Set<Contact> testContactSet = cManager2.getContacts("uce");
         assertEquals(testContactSet.size(), 1);
         /**
          * Adding Lucette and looking again for "uce"
          */
-        cManager1.addNewContact(name06, note06);
-        testContactSet = cManager1.getContacts("uce");
+        cManager2.addNewContact(name12, note12);
+        testContactSet = cManager2.getContacts("uce");
         assertEquals(testContactSet.size(), 2);
     }
 
@@ -282,23 +270,23 @@ public class ContactManagerImplTest {
 
     @Test
     public void testGetContactsByIdReturnsCorrespondingNumberOfContactsForSuppliedIDs() {
-        assertEquals(2, cManager2.getContacts(2, 4).size());
-        assertEquals(5, cManager2.getContacts(1,2,3,4,5).size());
-        assertEquals(5, cManager2.getContacts(5,4,3,2,1).size());
-        assertEquals(1, cManager2.getContacts(3).size());
+        assertEquals(2, cManager1.getContacts(2, 4).size());
+        assertEquals(5, cManager1.getContacts(1,2,3,4,5).size());
+        assertEquals(5, cManager1.getContacts(5,4,3,2,1).size());
+        assertEquals(1, cManager1.getContacts(3).size());
     }
 
     @Test
     public void testGetContactsByIdIgnoresDuplicateSuppliedIDs() {
-        assertEquals(3, cManager2.getContacts(1,2,2,4,4).size());
-        assertEquals(1, cManager2.getContacts(3,3,3,3,3,3).size());
+        assertEquals(3, cManager1.getContacts(1,2,2,4,4).size());
+        assertEquals(1, cManager1.getContacts(3,3,3,3,3,3).size());
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testGetContactsByIdThrowsIllegalArgumentExceptionForUnknownIDs() {
-        cManager2.getContacts(37);
-        cManager2.getContacts(1376, 94, 232);
-        cManager2.getContacts(1376, 94, 1376, 232, 94);
+        cManager1.getContacts(37);
+        cManager1.getContacts(1376, 94, 232);
+        cManager1.getContacts(1376, 94, 1376, 232, 94);
     }
 
     @Test

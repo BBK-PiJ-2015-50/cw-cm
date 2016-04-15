@@ -27,6 +27,12 @@ public class ContactManagerImpl implements ContactManager {
         if (date.before(currentTime)) {
             throw new IllegalArgumentException();
         }
+        /**
+         * Check for any unknown contacts
+         */
+        if (!contactSet.containsAll(contacts)) {
+            throw new IllegalArgumentException();
+        }
         int id = meetingId;
         meetingId++;
         return id;
@@ -44,7 +50,7 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public Meeting getMeeting(int id) {
-        return null;
+        return meeti;
     }
 
     @Override
@@ -94,7 +100,8 @@ public class ContactManagerImpl implements ContactManager {
         if (name.equals("")) {
             return contactSet;
         }
-        return contactSet.parallelStream().filter(c -> c.getName().contains(name)).collect(Collectors.toSet());
+        return contactSet.parallelStream()
+                .filter(c -> c.getName().contains(name)).collect(Collectors.toSet());
     }
 
     @Override
