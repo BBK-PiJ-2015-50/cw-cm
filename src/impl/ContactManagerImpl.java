@@ -55,7 +55,7 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public Meeting getMeeting(int id) {
-        throw new NotImplementedException();
+        return meetingList.stream().filter(m -> m.getId() == id).findFirst().orElse(null);
     }
 
     @Override

@@ -145,8 +145,18 @@ public class ContactManagerImplTest {
     public void testAddFutureMeetingsGetMeetings() {
         cManager1.addFutureMeeting(contactSet1, futureTime);
         cManager1.addFutureMeeting(contactSet2, futureTime);
+
         Meeting fMeeting1 = cManager1.getMeeting(1);
+        assertEquals(1, fMeeting1.getId());
+        assertEquals(contactSet1, fMeeting1.getContacts());
+        assertEquals(futureTime, fMeeting1.getDate());
+        assertTrue(fMeeting1 instanceof FutureMeeting);
+
         Meeting fMeeting2 = cManager1.getMeeting(2);
+        assertEquals(2, fMeeting2.getId());
+        assertEquals(contactSet2, fMeeting2.getContacts());
+        assertEquals(futureTime, fMeeting2.getDate());
+        assertTrue(fMeeting2 instanceof FutureMeeting);
     }
 
     @Test
