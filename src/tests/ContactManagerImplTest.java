@@ -170,8 +170,10 @@ public class ContactManagerImplTest {
     }
 
     @Test
-    public void testGetMeeting() throws Exception {
-
+    public void testGetMeetingReturnsNullForNoMeetingMatchingId() {
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        cManager1.addFutureMeeting(contactSet2, futureTime);
+        assertNull(cManager1.getMeeting(3));
     }
 
     @Test
