@@ -8,11 +8,13 @@ import java.util.stream.Collectors;
  */
 public class ContactManagerImpl implements ContactManager {
     private Set<Contact> contactSet;
+    private List<Meeting> meetingList;
     private int contactId, meetingId;
     private Calendar currentTime;
 
     public ContactManagerImpl() {
         contactSet = new HashSet<>();
+        meetingList =new ArrayList<>();
         contactId = 1;
         meetingId = 1;
         currentTime = Calendar.getInstance();
@@ -34,6 +36,7 @@ public class ContactManagerImpl implements ContactManager {
             throw new IllegalArgumentException();
         }
         int id = meetingId;
+        meetingList.add(new FutureMeetingImpl(id, date,contacts));
         meetingId++;
         return id;
     }
@@ -50,7 +53,7 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public Meeting getMeeting(int id) {
-        return meeti;
+        return null;
     }
 
     @Override
