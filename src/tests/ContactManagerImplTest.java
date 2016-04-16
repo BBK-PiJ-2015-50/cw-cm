@@ -167,8 +167,9 @@ public class ContactManagerImplTest {
     }
 
     @Test
-    public void testGetPastMeeting() throws Exception {
-
+    public void testGetPastMeetingThrowsIllegalArgumentExceptionForMeetingInFuture() {
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        cManager1.getPastMeeting(1);
     }
 
     @Test (expected = IllegalArgumentException.class)
