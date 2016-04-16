@@ -83,6 +83,9 @@ public class ContactManagerImpl implements ContactManager {
         if (contacts.isEmpty() || !contactSet.containsAll(contacts)) {
             throw new IllegalArgumentException();
         }
+        if (contacts == null || date == null || text == null) {
+            throw new NullPointerException();
+        }
         int id = meetingId;
         meetingList.add(new PastMeetingImpl(id, date,contacts, text));
         meetingId++;
