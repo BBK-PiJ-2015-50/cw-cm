@@ -209,6 +209,21 @@ public class ContactManagerImplTest {
         cManager1.addNewPastMeeting(contactSet3, pastTime, text01);
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testAddNewPastMeetingThrowsNullPointerExceptionForNullContacts() {
+        cManager1.addNewPastMeeting(null, pastTime, text01);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testAddNewPastMeetingThrowsNullPointerExceptionForNullDate() {
+        cManager1.addNewPastMeeting(contactSet1, null, text01);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testAddNewPastMeetingThrowsNullPointerExceptionForNullText() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, null);
+    }
+
     @Test
     public void testAddMeetingNotes() throws Exception {
 
