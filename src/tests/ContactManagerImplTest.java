@@ -238,6 +238,12 @@ public class ContactManagerImplTest {
         cManager1.addMeetingNotes(2, text02);
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void testAddMeetingNotesThrowsIllegalStateExceptionForMeetingDateInFuture() {
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        cManager1.addMeetingNotes(1, text01);
+    }
+
     /**
      * addNewContact tests
      */
