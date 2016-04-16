@@ -98,7 +98,10 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public PastMeeting addMeetingNotes(int id, String text) {
-        throw new NotImplementedException();
+        if (text == null) {
+            throw new NullPointerException();
+        }
+        return null;
     }
 
     @Override
