@@ -20,7 +20,7 @@ public class ContactManagerImplTest {
     private int id01,id02, id03, id04, id05, id12, id21, id22;
     private String name01, name02, name03, name04, name05, name12, name21, name22;
     private String note01, note02, note03, note04, note05, note12, note21, note22;
-    private String text01;
+    private String text01, text02;
 
     @Before
     public void setUp() {
@@ -87,6 +87,7 @@ public class ContactManagerImplTest {
         cManager1.addNewContact(name05, note05);
 
         text01 = "Text about Meeting 1";
+        text02 = "Text about Meeting 2";
 
         cManager2 = new ContactManagerImpl();
 
@@ -229,6 +230,12 @@ public class ContactManagerImplTest {
     public void testAddMeetingNotesThrowsNullPointerExceptionForNullNotes() {
         cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
         cManager1.addMeetingNotes(1, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddMeetingNotesThrowsIllegalArgumentExceptionForNonExistentMeeting() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
+        cManager1.addMeetingNotes(2, text02);
     }
 
     /**
