@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class ContactManagerImplTest {
     private ContactManager cManager1, cManager2;
-    private Set<Contact> contactSet1, contactSet2, contactSet3;
+    private Set<Contact> contactSet1, contactSet2, contactSet3, emptyContactSet;
     private Calendar testTime, futureTime, pastTime;
 
     private Contact contact01, contact02, contact03, contact04, contact05, contact12, contact21, contact22;
@@ -76,6 +76,8 @@ public class ContactManagerImplTest {
         contact22 = new ContactImpl(id22, name22, note22);
         contactSet3.add(contact21);
         contactSet3.add(contact22);
+
+        emptyContactSet = new HashSet<>();
 
         cManager1 = new ContactManagerImpl();
         cManager1.addNewContact(name01, note01);
@@ -197,9 +199,9 @@ public class ContactManagerImplTest {
 
     }
 
-    @Test
-    public void testAddNewPastMeeting() throws Exception {
-
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddNewPastMeetingThrowsIllegalArgumentExceptionForEmptyContacts() {
+        cManager1.addNewPastMeeting(emptyContactSet, pastTime, text01);
     }
 
     @Test
