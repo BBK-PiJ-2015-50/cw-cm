@@ -105,6 +105,10 @@ public class ContactManagerImpl implements ContactManager {
         if (selectedMeeting == null) {
             throw new IllegalArgumentException();
         }
+        currentTime = Calendar.getInstance();
+        if (selectedMeeting.getDate().after(currentTime)) {
+            throw new IllegalStateException();
+        }
         return null;
     }
 
