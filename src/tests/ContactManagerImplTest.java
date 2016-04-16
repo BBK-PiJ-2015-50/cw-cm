@@ -204,6 +204,11 @@ public class ContactManagerImplTest {
         cManager1.addNewPastMeeting(emptyContactSet, pastTime, text01);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddNewPastMeetingThrowsIllegalArgumentExceptionForNonExistentContacts() {
+        cManager1.addNewPastMeeting(contactSet3, pastTime, text01);
+    }
+
     @Test
     public void testAddMeetingNotes() throws Exception {
 

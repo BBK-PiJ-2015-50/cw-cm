@@ -80,6 +80,9 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
+        if (contacts.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         int id = meetingId;
         meetingList.add(new PastMeetingImpl(id, date,contacts, text));
         meetingId++;
