@@ -20,7 +20,7 @@ public class ContactManagerImplTest {
     private int id01,id02, id03, id04, id05, id12, id21, id22;
     private String name01, name02, name03, name04, name05, name12, name21, name22;
     private String note01, note02, note03, note04, note05, note12, note21, note22;
-    private String text01, text02;
+    private String text01, text02, textAdded;
 
     @Before
     public void setUp() {
@@ -88,6 +88,7 @@ public class ContactManagerImplTest {
 
         text01 = "Text about Meeting 1";
         text02 = "Text about Meeting 2";
+        textAdded = "Some added notes";
 
         cManager2 = new ContactManagerImpl();
 
@@ -242,6 +243,13 @@ public class ContactManagerImplTest {
     public void testAddMeetingNotesThrowsIllegalStateExceptionForMeetingDateInFuture() {
         cManager1.addFutureMeeting(contactSet1, futureTime);
         cManager1.addMeetingNotes(1, text01);
+    }
+
+    @Test
+    public void testAddMeetingNotesAddNotesToPastMeetingThenGetNotesOriginalPlusAdded() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
+        PastMeeting returnedPastMeeting = cManager1.addMeetingNotes(1, textAdded);
+        assertEquals(text01 + textAdded, returnedPastMeeting.getNotes());
     }
 
     /**
