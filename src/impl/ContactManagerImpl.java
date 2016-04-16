@@ -109,7 +109,14 @@ public class ContactManagerImpl implements ContactManager {
         if (selectedMeeting.getDate().after(currentTime)) {
             throw new IllegalStateException();
         }
-        return null;
+        if (selectedMeeting instanceof PastMeeting) {
+            text = ((PastMeeting) selectedMeeting).getNotes() + text;
+        }
+        PastMeeting replacementMeeting = new PastMeetingImpl
+                (id, selectedMeeting.getDate(), selectedMeeting.getContacts(), text);
+        meetingList.remove(selectedMeeting);
+        meetingList.add(replacementMeeting);
+        return replacementMeeting;
     }
 
     @Override
