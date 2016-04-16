@@ -166,7 +166,7 @@ public class ContactManagerImplTest {
         assertTrue(fMeeting2 instanceof FutureMeeting);
     }
 
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void testGetPastMeetingThrowsIllegalArgumentExceptionForMeetingInFuture() {
         cManager1.addFutureMeeting(contactSet1, futureTime);
         cManager1.getPastMeeting(1);
@@ -225,9 +225,10 @@ public class ContactManagerImplTest {
         cManager1.addNewPastMeeting(contactSet1, pastTime, null);
     }
 
-    @Test
-    public void testAddMeetingNotes() throws Exception {
-
+    @Test (expected = NullPointerException.class)
+    public void testAddMeetingNotesThrowsNullPointerExceptionForNullNotes() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
+        cManager1.addMeetingNotes(1, null);
     }
 
     /**

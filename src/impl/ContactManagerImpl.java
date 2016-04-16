@@ -45,7 +45,12 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public PastMeeting getPastMeeting(int id) {
-        throw new NotImplementedException();
+        Meeting selectedMeeting = getMeeting(id);
+        currentTime = Calendar.getInstance();
+        if (selectedMeeting.getDate().after(currentTime)) {
+            throw new IllegalArgumentException();
+        }
+        return (PastMeeting) selectedMeeting;
     }
 
     @Override
@@ -93,7 +98,7 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public PastMeeting addMeetingNotes(int id, String text) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
