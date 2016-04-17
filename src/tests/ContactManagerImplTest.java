@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -493,8 +496,13 @@ public class ContactManagerImplTest {
         cManager1.getContacts(1376, 94, 1376, 232, 94);
     }
 
+    /**
+     * Persistence tests
+     */
     @Test
-    public void testFlush() throws Exception {
-
+    public void testFlushCreatesFile() {
+        cManager1.flush();
+        Path path = FileSystems.getDefault().getPath(TEXT_FILE_NAME);
+        assertTrue(Files.exists(path));
     }
 }

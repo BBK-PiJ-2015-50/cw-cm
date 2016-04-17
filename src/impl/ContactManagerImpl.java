@@ -175,7 +175,8 @@ public class ContactManagerImpl implements ContactManager {
             return contactSet;
         }
         return contactSet.parallelStream()
-                .filter(c -> c.getName().contains(name)).collect(Collectors.toSet());
+                .filter(c -> c.getName().contains(name))
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -195,6 +196,6 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public void flush() {
-
+        throw new NotImplementedException();
     }
 }
