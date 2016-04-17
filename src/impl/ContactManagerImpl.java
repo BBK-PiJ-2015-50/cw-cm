@@ -110,7 +110,10 @@ public class ContactManagerImpl implements ContactManager {
             throw new IllegalStateException();
         }
         if (selectedMeeting instanceof PastMeeting) {
-            text = ((PastMeeting) selectedMeeting).getNotes() + text;
+            String previousNotes = ((PastMeeting) selectedMeeting).getNotes();
+            if (previousNotes != "") {
+                text = previousNotes + "\n" + text;
+            }
         }
         PastMeeting replacementMeeting = new PastMeetingImpl
                 (id, selectedMeeting.getDate(), selectedMeeting.getContacts(), text);

@@ -249,7 +249,8 @@ public class ContactManagerImplTest {
     public void testAddMeetingNotesAddNotesToPastMeetingThenGetNotesOriginalPlusAdded() {
         cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
         PastMeeting returnedPastMeeting = cManager1.addMeetingNotes(1, textAdded);
-        assertEquals(text01 + textAdded, returnedPastMeeting.getNotes());
+        assertEquals(text01 + "\n" + textAdded, returnedPastMeeting.getNotes());
+        System.out.println(returnedPastMeeting.getNotes());
     }
 
     /**
