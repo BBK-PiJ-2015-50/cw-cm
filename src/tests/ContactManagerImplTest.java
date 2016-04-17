@@ -205,6 +205,19 @@ public class ContactManagerImplTest {
     }
 
     @Test
+    public void testGetMeetingListOnReturnsCorrectSizeListForDateInFutureWith2Meetings() {
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        cManager1.addFutureMeeting(contactSet2, futureTime);
+        assertEquals(2, cManager1.getMeetingListOn(futureTime).size());
+    }
+
+    @Test
+    public void testGetMeetingListOnReturnsCorrectSizeListForDateInFutureWith1Meeting() {
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        assertEquals(1, cManager1.getMeetingListOn(futureTime).size());
+    }
+
+    @Test
     public void testGetPastMeetingListFor() throws Exception {
 
     }
