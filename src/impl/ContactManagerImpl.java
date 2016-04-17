@@ -1,9 +1,8 @@
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,6 +24,19 @@ public class ContactManagerImpl implements ContactManager, Serializable {
         contactId = 1;
         meetingId = 1;
         currentTime = Calendar.getInstance();
+
+        if (Files.exists(FileSystems.getDefault().getPath(TEXT_FILE_NAME))) {
+            try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(TEXT_FILE_NAME))) {
+                contactSet = (Set<Contact>) input.readObject();
+                meetingList = (List<Meeting>) input.readObject();
+                contactId = (int) input.readObject();
+                meetingId = (int) input.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -201,8 +213,11 @@ public class ContactManagerImpl implements ContactManager, Serializable {
 
     @Override
     public void flush() {
-        try (ObjectOutputStream objectOutput = new ObjectOutputStream(new FileOutputStream(TEXT_FILE_NAME))) {
-            objectOutput.writeObject(this);
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(TEXT_FILE_NAME))) {
+            output.writeObject(contactSet);
+            output.writeObject(meetingList);
+            output.writeObject(contactId);
+            output.writeObject(meetingId);
         }
         catch (IOException e) {
             e.printStackTrace();
