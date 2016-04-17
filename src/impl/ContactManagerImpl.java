@@ -99,7 +99,10 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public List<PastMeeting> getPastMeetingListFor(Contact contact) {
-        throw new NotImplementedException();
+        if (contact == null) {
+            throw new NullPointerException();
+        }
+        return null;
     }
 
     @Override
