@@ -298,6 +298,27 @@ public class ContactManagerImplTest {
         assertEquals(1, cManager1.getPastMeetingListFor(contact03).size());
     }
 
+    @Test
+    public void testGetPastMeetingListForReturnsListSize2ForContactWith2MeetingsParticipatedIn() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
+        pastTime.add(Calendar.DATE, -1);
+        cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
+        assertEquals(2, cManager1.getPastMeetingListFor(contact03).size());
+    }
+/**
+    @Test
+    public void testGetFutureMeetingListReturnsSortedList() {
+        cManager1.addFutureMeeting(contactSet1, futureTime04);
+        cManager1.addFutureMeeting(contactSet1, futureTime02);
+        cManager1.addFutureMeeting(contactSet1, futureTime01);
+        cManager1.addFutureMeeting(contactSet1, futureTime03);
+        List<Meeting> meetingsForSelectedContact = cManager1.getFutureMeetingList(contact03);
+        assertEquals(3, meetingsForSelectedContact.get(0).getId());
+        assertEquals(2, meetingsForSelectedContact.get(1).getId());
+        assertEquals(4, meetingsForSelectedContact.get(2).getId());
+        assertEquals(1, meetingsForSelectedContact.get(3).getId());
+    }
+*/
     @Test (expected = IllegalArgumentException.class)
     public void testAddNewPastMeetingThrowsIllegalArgumentExceptionForEmptyContacts() {
         cManager1.addNewPastMeeting(emptyContactSet, pastTime, text01);
