@@ -70,6 +70,9 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public List<Meeting> getFutureMeetingList(Contact contact) {
+        if (contact == null) {
+            throw new NullPointerException();
+        }
         return null;
     }
 
