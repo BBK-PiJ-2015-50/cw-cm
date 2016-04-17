@@ -211,6 +211,33 @@ public class ContactManagerImplTest {
         assertTrue(cManager1.getFutureMeetingList(contact05).isEmpty());
     }
 
+    @Test
+    public void testGetFutureMeetingListReturnsListSize1ForContactWith1ScheduledMeeting() {
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        assertEquals(1, cManager1.getFutureMeetingList(contact03).size());
+    }
+
+    @Test
+    public void testGetFutureMeetingListReturnsListSize2ForContactWith2ScheduledMeetings() {
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        futureTime.add(Calendar.MONTH, 1);
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        assertEquals(2, cManager1.getFutureMeetingList(contact03).size());
+    }
+
+    @Test
+    public void testGetFutureMeetingListReturnsSortedList() {
+        cManager1.addFutureMeeting(contactSet1, futureTime04);
+        cManager1.addFutureMeeting(contactSet1, futureTime02);
+        cManager1.addFutureMeeting(contactSet1, futureTime01);
+        cManager1.addFutureMeeting(contactSet1, futureTime03);
+        List<Meeting> meetingsForSelectedContact = cManager1.getFutureMeetingList(contact03);
+        assertEquals(3, meetingsForSelectedContact.get(0).getId());
+        assertEquals(2, meetingsForSelectedContact.get(1).getId());
+        assertEquals(4, meetingsForSelectedContact.get(2).getId());
+        assertEquals(1, meetingsForSelectedContact.get(3).getId());
+    }
+
     @Test (expected = NullPointerException.class)
     public void testGetMeetingListOnThrowsNullPointerExceptionForNullDate() {
         cManager1.getMeetingListOn(null);
