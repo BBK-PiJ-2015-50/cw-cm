@@ -192,9 +192,9 @@ public class ContactManagerImplTest {
 
     }
 
-    @Test
-    public void testGetMeetingListOn() throws Exception {
-
+    @Test (expected = NullPointerException.class)
+    public void testGetMeetingListOnThrowsNullPointerExceptionForNullDate() {
+        cManager1.getMeetingListOn(null);
     }
 
     @Test
