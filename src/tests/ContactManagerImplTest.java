@@ -13,12 +13,13 @@ public class ContactManagerImplTest {
     private Set<Contact> contactSet1, contactSet2, contactSet3, emptyContactSet;
     private Calendar testTime, pastTime, futureTime;
     private Calendar futureTime01, futureTime02, futureTime03, futureTime04, futureTime05;
+    private Calendar pastTime01, pastTime02, pastTime03, pastTime04, pastTime05;
 
     private Contact contact01, contact02, contact03, contact04, contact05, contact12, contact21, contact22;
     private int id01,id02, id03, id04, id05, id12, id21, id22;
     private String name01, name02, name03, name04, name05, name12, name21, name22;
     private String note01, note02, note03, note04, note05, note12, note21, note22;
-    private String text01, text02, textAdded;
+    private String text01, text02, text03, text04, textAdded;
 
     @Before
     public void setUp() {
@@ -86,6 +87,8 @@ public class ContactManagerImplTest {
 
         text01 = "Text about Meeting 1";
         text02 = "Text about Meeting 2";
+        text03 = "Text about Meeting 3";
+        text04 = "Text about Meeting 4";
         textAdded = "Some added notes";
 
         cManager2 = new ContactManagerImpl();
@@ -105,6 +108,16 @@ public class ContactManagerImplTest {
         futureTime05.add(Calendar.MINUTE, 5);
         pastTime = Calendar.getInstance();
         pastTime.add(Calendar.MONTH, -1);
+        pastTime01 = Calendar.getInstance();
+        pastTime01.add(Calendar.MINUTE, -25);
+        pastTime02 = Calendar.getInstance();
+        pastTime02.add(Calendar.MINUTE, -20);
+        pastTime03 = Calendar.getInstance();
+        pastTime03.add(Calendar.MINUTE, -15);
+        pastTime04 = Calendar.getInstance();
+        pastTime04.add(Calendar.MINUTE, -10);
+        pastTime05 = Calendar.getInstance();
+        pastTime05.add(Calendar.MINUTE, -5);
     }
 
     @Test (expected = NullPointerException.class)
@@ -305,20 +318,20 @@ public class ContactManagerImplTest {
         cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
         assertEquals(2, cManager1.getPastMeetingListFor(contact03).size());
     }
-/**
+
     @Test
-    public void testGetFutureMeetingListReturnsSortedList() {
-        cManager1.addFutureMeeting(contactSet1, futureTime04);
-        cManager1.addFutureMeeting(contactSet1, futureTime02);
-        cManager1.addFutureMeeting(contactSet1, futureTime01);
-        cManager1.addFutureMeeting(contactSet1, futureTime03);
-        List<Meeting> meetingsForSelectedContact = cManager1.getFutureMeetingList(contact03);
+    public void testGetPastMeetingListForReturnsSortedList() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime04, text04);
+        cManager1.addNewPastMeeting(contactSet1, pastTime02, text02);
+        cManager1.addNewPastMeeting(contactSet1, pastTime01, text01);
+        cManager1.addNewPastMeeting(contactSet1, pastTime03, text03);
+        List<PastMeeting> meetingsForSelectedContact = cManager1.getPastMeetingListFor(contact03);
         assertEquals(3, meetingsForSelectedContact.get(0).getId());
         assertEquals(2, meetingsForSelectedContact.get(1).getId());
         assertEquals(4, meetingsForSelectedContact.get(2).getId());
         assertEquals(1, meetingsForSelectedContact.get(3).getId());
     }
-*/
+
     @Test (expected = IllegalArgumentException.class)
     public void testAddNewPastMeetingThrowsIllegalArgumentExceptionForEmptyContacts() {
         cManager1.addNewPastMeeting(emptyContactSet, pastTime, text01);
