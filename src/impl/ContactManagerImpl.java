@@ -105,7 +105,12 @@ public class ContactManagerImpl implements ContactManager {
         if (!contactSet.contains(contact)) {
             throw new IllegalArgumentException();
         }
-        return null;
+        return meetingList.stream()
+                .filter(m -> m.getContacts().contains(contact))
+                .distinct()
+                .sorted(Comparator.comparing(Meeting::getDate))
+                .map(m -> (PastMeeting) m)
+                .collect(Collectors.toList());
     }
 
     @Override
