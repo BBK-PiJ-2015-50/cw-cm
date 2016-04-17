@@ -78,7 +78,13 @@ public class ContactManagerImpl implements ContactManager {
         if (date == null) {
             throw new NullPointerException();
         }
-        return null;
+        return meetingList.stream()
+                .filter(m -> m.getDate().get(Calendar.YEAR) == (date.get(Calendar.YEAR)))
+                .filter(m -> m.getDate().get(Calendar.MONTH) == (date.get(Calendar.MONTH)))
+                .filter(m -> m.getDate().get(Calendar.DAY_OF_MONTH) == (date.get(Calendar.DAY_OF_MONTH)))
+                .distinct()
+                .sorted(Comparator.comparing(Meeting::getDate))
+                .collect(Collectors.toList());
     }
 
     @Override

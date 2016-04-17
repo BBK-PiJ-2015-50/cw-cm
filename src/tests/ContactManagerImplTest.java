@@ -194,12 +194,14 @@ public class ContactManagerImplTest {
 
     @Test (expected = NullPointerException.class)
     public void testGetMeetingListOnThrowsNullPointerExceptionForNullDate() {
-        cManager1.getMeetingListOn(testTime);
+        cManager1.getMeetingListOn(null);
     }
 
     @Test
     public void testGetMeetingListOnReturnsEmptyListForDateWithNoMeetings() {
-        assertTrue((cManager1.getMeetingListOn(null)).isEmpty());
+        cManager1.addFutureMeeting(contactSet1, futureTime);
+        cManager1.addFutureMeeting(contactSet2, futureTime);
+        assertTrue((cManager1.getMeetingListOn(testTime)).isEmpty());
     }
 
     @Test
