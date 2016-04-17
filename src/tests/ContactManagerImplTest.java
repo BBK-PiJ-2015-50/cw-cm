@@ -276,9 +276,9 @@ public class ContactManagerImplTest {
         assertEquals(1, meetingsOnSelectedDate.get(3).getId());
     }
 
-    @Test
-    public void testGetPastMeetingListFor() throws Exception {
-
+    @Test (expected = NullPointerException.class)
+    public void testGetPastMeetingListForThrowsNullPointerExceptionForNullContact() {
+        cManager1.getPastMeetingListFor(null);
     }
 
     @Test (expected = IllegalArgumentException.class)
