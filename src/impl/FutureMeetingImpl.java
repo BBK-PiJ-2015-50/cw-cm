@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -6,7 +7,7 @@ import java.util.Set;
  *
  * @see FutureMeeting
  */
-public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
+public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting, Serializable {
     public FutureMeetingImpl(int id, Calendar date, Set<Contact> contacts){
         super(id, date, contacts);
     }

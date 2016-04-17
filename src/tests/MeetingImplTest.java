@@ -106,13 +106,13 @@ public class MeetingImplTest {
     @Test
     public void testPastMeetingGetDateReturnsCorrectDate() throws Exception {
         meeting2 = new PastMeetingImpl(1, new GregorianCalendar(2016, 3, 8), contacts, notes);
-        assertEquals(new GregorianCalendar(2016, 3, 8), meeting1.getDate());
+        assertEquals(new GregorianCalendar(2016, 3, 8), meeting2.getDate());
     }
 
     @Test
     public void testPastMeetingGetContactsReturnsCorrectContacts() {
         meeting2 = new PastMeetingImpl(1, Calendar.getInstance(), contacts, notes);
-        assertEquals(contacts, meeting1.getContacts());
+        assertEquals(contacts, meeting2.getContacts());
     }
 
     /**

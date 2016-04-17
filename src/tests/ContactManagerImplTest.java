@@ -1,6 +1,8 @@
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,6 +25,8 @@ public class ContactManagerImplTest {
     private String name01, name02, name03, name04, name05, name12, name21, name22;
     private String note01, note02, note03, note04, note05, note12, note21, note22;
     private String text01, text02, text03, text04, textAdded;
+
+    static final String TEXT_FILE_NAME = "contacts.txt";
 
     @Before
     public void setUp() {
@@ -121,6 +125,16 @@ public class ContactManagerImplTest {
         pastTime04.add(Calendar.MINUTE, -10);
         pastTime05 = Calendar.getInstance();
         pastTime05.add(Calendar.MINUTE, -5);
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            Files.deleteIfExists(FileSystems.getDefault().getPath(TEXT_FILE_NAME));
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Test (expected = NullPointerException.class)
@@ -504,5 +518,13 @@ public class ContactManagerImplTest {
         cManager1.flush();
         Path path = FileSystems.getDefault().getPath(TEXT_FILE_NAME);
         assertTrue(Files.exists(path));
+    }
+
+    @Test
+    public void testFlushCreatesFileOpenedByNewContactManagerImpl() {
+        cManager2.addNewContact(name01, note01);
+        cManager2.flush();
+        ContactManager cManager3 = new ContactManagerImpl();
+        assertEquals(1, cManager3.getContacts("").size());
     }
 }

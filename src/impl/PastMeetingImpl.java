@@ -1,5 +1,6 @@
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import java.util.Set;
  *
  * @see PastMeeting
  */
-public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
+public class PastMeetingImpl extends MeetingImpl implements PastMeeting, Serializable {
     private String notes;
 
     public PastMeetingImpl(int id, Calendar date, Set<Contact> contacts, String notes) {

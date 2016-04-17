@@ -1,5 +1,6 @@
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  *
  * @see Contact
  */
-public class ContactImpl implements Contact {
+public class ContactImpl implements Contact, Serializable {
     private int id;
     private String name, notes;
 

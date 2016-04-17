@@ -1,5 +1,9 @@
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -8,11 +12,12 @@ import java.util.stream.Collectors;
  *
  * @see ContactManager
  */
-public class ContactManagerImpl implements ContactManager {
+public class ContactManagerImpl implements ContactManager, Serializable {
     private Set<Contact> contactSet;
     private List<Meeting> meetingList;
     private int contactId, meetingId;
     private Calendar currentTime;
+    private static final String TEXT_FILE_NAME = "contacts.txt";
 
     public ContactManagerImpl() {
         contactSet = new HashSet<>();
@@ -196,6 +201,11 @@ public class ContactManagerImpl implements ContactManager {
 
     @Override
     public void flush() {
-        throw new NotImplementedException();
+        try (ObjectOutputStream objectOutput = new ObjectOutputStream(new FileOutputStream(TEXT_FILE_NAME))) {
+            objectOutput.writeObject(this);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
