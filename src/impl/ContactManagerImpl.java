@@ -213,6 +213,11 @@ public class ContactManagerImpl implements ContactManager, Serializable {
 
     @Override
     public void flush() {
+        try {
+            Files.deleteIfExists(FileSystems.getDefault().getPath(TEXT_FILE_NAME));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(TEXT_FILE_NAME))) {
             output.writeObject(contactSet);
             output.writeObject(meetingList);
