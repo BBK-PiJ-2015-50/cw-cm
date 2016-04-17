@@ -102,6 +102,9 @@ public class ContactManagerImpl implements ContactManager {
         if (contact == null) {
             throw new NullPointerException();
         }
+        if (!contactSet.contains(contact)) {
+            throw new IllegalArgumentException();
+        }
         return null;
     }
 
