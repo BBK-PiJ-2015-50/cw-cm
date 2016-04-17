@@ -253,6 +253,14 @@ public class ContactManagerImplTest {
         System.out.println(returnedPastMeeting.getNotes());
     }
 
+    @Test
+    public void testAddMeetingNotesAddNotesToPastMeetingWithEmptyNotesThenGetNotesOriginalPlusAdded() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, "");
+        PastMeeting returnedPastMeeting = cManager1.addMeetingNotes(1, textAdded);
+        assertEquals(textAdded, returnedPastMeeting.getNotes());
+        System.out.println(returnedPastMeeting.getNotes());
+    }
+
     /**
      * addNewContact tests
      */
