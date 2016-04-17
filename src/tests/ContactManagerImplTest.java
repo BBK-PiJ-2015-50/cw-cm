@@ -527,4 +527,25 @@ public class ContactManagerImplTest {
         ContactManager cManager3 = new ContactManagerImpl();
         assertEquals(1, cManager3.getContacts("").size());
     }
+
+    @Test
+    public void testNumberOfContactsAfterFlushThenStartup() {
+        ContactManager cManager3 = new ContactManagerImpl();
+        cManager3.addNewContact(name01, note01);
+        cManager3.addNewContact(name02, note02);
+        cManager3.addNewContact(name03, note03);
+        cManager3.flush();
+        ContactManager cManager4 = new ContactManagerImpl();
+        assertEquals(3, cManager4.getContacts("").size());
+    }
+
+    @Test
+    public void testGetNotesAfterAddNewPastMeetingFlushThenStartup() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
+        cManager1.addNewPastMeeting(contactSet2, pastTime, text02);
+        cManager1.flush();
+        ContactManager cManager4 = new ContactManagerImpl();
+        assertEquals(text01, cManager4.getPastMeeting(1).getNotes());
+        assertEquals(text02, cManager4.getPastMeeting(2).getNotes());
+    }
 }
