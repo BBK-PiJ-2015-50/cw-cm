@@ -200,6 +200,11 @@ public class ContactManagerImplTest {
         cManager1.getFutureMeetingList(null);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetFutureMeetingListThrowsIllegalArgumentExceptionForNonExistentContact() {
+        cManager1.getFutureMeetingList(contact21);
+    }
+
     @Test (expected = NullPointerException.class)
     public void testGetMeetingListOnThrowsNullPointerExceptionForNullDate() {
         cManager1.getMeetingListOn(null);
