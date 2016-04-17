@@ -1,10 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +11,8 @@ import static org.junit.Assert.*;
 public class ContactManagerImplTest {
     private ContactManager cManager1, cManager2;
     private Set<Contact> contactSet1, contactSet2, contactSet3, emptyContactSet;
-    private Calendar testTime, futureTime, pastTime;
+    private Calendar testTime, pastTime, futureTime;
+    private Calendar futureTime01, futureTime02, futureTime03, futureTime04, futureTime05;
 
     private Contact contact01, contact02, contact03, contact04, contact05, contact12, contact21, contact22;
     private int id01,id02, id03, id04, id05, id12, id21, id22;
@@ -95,6 +93,16 @@ public class ContactManagerImplTest {
         testTime = Calendar.getInstance();
         futureTime = Calendar.getInstance();
         futureTime.add(Calendar.MONTH, 1);
+        futureTime01 = Calendar.getInstance();
+        futureTime01.add(Calendar.MINUTE, 1);
+        futureTime02 = Calendar.getInstance();
+        futureTime02.add(Calendar.MINUTE, 2);
+        futureTime03 = Calendar.getInstance();
+        futureTime03.add(Calendar.MINUTE, 3);
+        futureTime04 = Calendar.getInstance();
+        futureTime04.add(Calendar.MINUTE, 4);
+        futureTime05 = Calendar.getInstance();
+        futureTime05.add(Calendar.MINUTE, 5);
         pastTime = Calendar.getInstance();
         pastTime.add(Calendar.MONTH, -1);
     }
@@ -187,9 +195,9 @@ public class ContactManagerImplTest {
         assertNull(cManager1.getMeeting(3));
     }
 
-    @Test
-    public void testGetFutureMeetingList() throws Exception {
-
+    @Test (expected = NullPointerException.class)
+    public void testGetFutureMeetingListThrowsNullPointerExceptionForNullContact() {
+        cManager1.getFutureMeetingList(null);
     }
 
     @Test (expected = NullPointerException.class)
@@ -215,6 +223,19 @@ public class ContactManagerImplTest {
     public void testGetMeetingListOnReturnsCorrectSizeListForDateInFutureWith1Meeting() {
         cManager1.addFutureMeeting(contactSet1, futureTime);
         assertEquals(1, cManager1.getMeetingListOn(futureTime).size());
+    }
+
+    @Test
+    public void testGetMeetingListOnReturnsSortedList() {
+        cManager1.addFutureMeeting(contactSet1, futureTime04);
+        cManager1.addFutureMeeting(contactSet1, futureTime02);
+        cManager1.addFutureMeeting(contactSet1, futureTime01);
+        cManager1.addFutureMeeting(contactSet1, futureTime03);
+        List<Meeting> meetingsOnSelectedDate = cManager1.getMeetingListOn(futureTime01);
+        assertEquals(3, meetingsOnSelectedDate.get(0).getId());
+        assertEquals(2, meetingsOnSelectedDate.get(1).getId());
+        assertEquals(4, meetingsOnSelectedDate.get(2).getId());
+        assertEquals(1, meetingsOnSelectedDate.get(3).getId());
     }
 
     @Test
