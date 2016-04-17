@@ -292,6 +292,12 @@ public class ContactManagerImplTest {
         assertTrue(cManager1.getPastMeetingListFor(contact05).isEmpty());
     }
 
+    @Test
+    public void testGetPastMeetingListForReturnsListSize1ForContactWith1MeetingParticipatedIn() {
+        cManager1.addNewPastMeeting(contactSet1, pastTime, text01);
+        assertEquals(1, cManager1.getPastMeetingListFor(contact03).size());
+    }
+
     @Test (expected = IllegalArgumentException.class)
     public void testAddNewPastMeetingThrowsIllegalArgumentExceptionForEmptyContacts() {
         cManager1.addNewPastMeeting(emptyContactSet, pastTime, text01);
