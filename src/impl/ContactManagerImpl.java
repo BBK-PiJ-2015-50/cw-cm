@@ -73,7 +73,14 @@ public class ContactManagerImpl implements ContactManager {
         if (contact == null) {
             throw new NullPointerException();
         }
-        return null;
+        if (!contactSet.contains(contact)) {
+            throw new IllegalArgumentException();
+        }
+        return meetingList.stream()
+                .filter(m -> m.getContacts().contains(contact))
+                .distinct()
+                .sorted(Comparator.comparing(Meeting::getDate))
+                .collect(Collectors.toList());
     }
 
     @Override
