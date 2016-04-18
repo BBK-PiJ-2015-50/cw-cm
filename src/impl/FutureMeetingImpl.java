@@ -3,7 +3,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 /**
- * Created by chris on 09/04/2016.
+ * @author Chris Kimberley
  *
  * @see FutureMeeting
  */

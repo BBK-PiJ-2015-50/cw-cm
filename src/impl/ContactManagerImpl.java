@@ -6,7 +6,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Created by chris on 11/04/2016.
+ * @author Chris Kimberley
+ *
+ * ContactManagerImpl uses contactId and meetingId variables
+ * to provide unique IDs for contacts and meetings
  *
  * @see ContactManager
  */
@@ -23,6 +26,10 @@ public class ContactManagerImpl implements ContactManager, Serializable {
         contactId = 1;
         meetingId = 1;
         currentTime = Calendar.getInstance();
+
+        // All data is stored in a text file "contacts.txt"
+        // If the file exists it is read at startup to recover data from a former session,
+        // otherwise a fresh ContactManagerImpl is created
 
         if (Files.exists(FileSystems.getDefault().getPath(TEXT_FILE_NAME))) {
             try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(TEXT_FILE_NAME))) {
@@ -42,12 +49,11 @@ public class ContactManagerImpl implements ContactManager, Serializable {
         if (contacts == null || date == null) {
             throw new NullPointerException();
         }
+        // Throw an exception for a date in the past
         if (date.before(currentTime)) {
             throw new IllegalArgumentException();
         }
-        /**
-         * Check for any unknown contacts
-         */
+        // Throw an exception for any unknown contacts
         if (!contactSet.containsAll(contacts)) {
             throw new IllegalArgumentException();
         }
@@ -61,6 +67,7 @@ public class ContactManagerImpl implements ContactManager, Serializable {
     public PastMeeting getPastMeeting(int id) {
         Meeting selectedMeeting = getMeeting(id);
         currentTime = Calendar.getInstance();
+        // Throw an exception for a date in the future
         if (selectedMeeting.getDate().after(currentTime)) {
             throw new IllegalArgumentException();
         }
@@ -71,6 +78,7 @@ public class ContactManagerImpl implements ContactManager, Serializable {
     public FutureMeeting getFutureMeeting(int id) {
         Meeting selectedMeeting = getMeeting(id);
         currentTime = Calendar.getInstance();
+        // Throw an exception for a date in the past
         if (selectedMeeting.getDate().before(currentTime)) {
             throw new IllegalArgumentException();
         }
@@ -87,9 +95,11 @@ public class ContactManagerImpl implements ContactManager, Serializable {
         if (contact == null) {
             throw new NullPointerException();
         }
+        // Throw an exception for any unknown contacts
         if (!contactSet.contains(contact)) {
             throw new IllegalArgumentException();
         }
+        // List with no duplicates, chronologically sorted
         return meetingList.stream()
                 .filter(m -> m.getContacts().contains(contact))
                 .distinct()
@@ -102,6 +112,7 @@ public class ContactManagerImpl implements ContactManager, Serializable {
         if (date == null) {
             throw new NullPointerException();
         }
+        // List with no duplicates, chronologically sorted
         return meetingList.stream()
                 .filter(m -> m.getDate().get(Calendar.YEAR) == (date.get(Calendar.YEAR)))
                 .filter(m -> m.getDate().get(Calendar.MONTH) == (date.get(Calendar.MONTH)))
@@ -116,9 +127,11 @@ public class ContactManagerImpl implements ContactManager, Serializable {
         if (contact == null) {
             throw new NullPointerException();
         }
+        // Throw an exception for any unknown contacts
         if (!contactSet.contains(contact)) {
             throw new IllegalArgumentException();
         }
+        // List with no duplicates, chronologically sorted
         return meetingList.stream()
                 .filter(m -> m.getContacts().contains(contact))
                 .distinct()
@@ -129,6 +142,7 @@ public class ContactManagerImpl implements ContactManager, Serializable {
 
     @Override
     public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
+        // All supplied contacts must already exist
         if (contacts.isEmpty() || !contactSet.containsAll(contacts)) {
             throw new IllegalArgumentException();
         }
@@ -150,15 +164,20 @@ public class ContactManagerImpl implements ContactManager, Serializable {
             throw new IllegalArgumentException();
         }
         currentTime = Calendar.getInstance();
+        // Throw an exception for a date in the future
         if (selectedMeeting.getDate().after(currentTime)) {
             throw new IllegalStateException();
         }
+        // Add new notes to previous notes for a PastMeeting
+        // with each note on a new line
+        // (Note formatting is not included elsewhere)
         if (selectedMeeting instanceof PastMeeting) {
             String previousNotes = ((PastMeeting) selectedMeeting).getNotes();
             if (!previousNotes.equals("")) {
                 text = previousNotes + "\n" + text;
             }
         }
+        // Replace old meeting with a new meeting with added notes
         PastMeeting replacementMeeting = new PastMeetingImpl
                 (id, selectedMeeting.getDate(), selectedMeeting.getContacts(), text);
         meetingList.remove(selectedMeeting);
@@ -198,10 +217,13 @@ public class ContactManagerImpl implements ContactManager, Serializable {
         if (ids.length == 0) {
             throw new IllegalArgumentException();
         }
+        // Get rid of duplicates
         Set<Integer> distinctSuppliedIds = Arrays.stream(ids).mapToObj(i -> (Integer) i).collect(Collectors.toSet());
+        // Search for a contact whose name contains supplied string
         Set<Contact> correspondingContacts = contactSet.parallelStream()
                 .filter(c -> distinctSuppliedIds.parallelStream().anyMatch(i -> i == c.getId()))
                 .collect(Collectors.toSet());
+        // Throw exception if any supplied IDs don't correspond to existing contacts
         if (distinctSuppliedIds.size() != correspondingContacts.size()) {
             throw new IllegalArgumentException();
         }
@@ -210,11 +232,13 @@ public class ContactManagerImpl implements ContactManager, Serializable {
 
     @Override
     public void flush() {
+        // If data text file exists, delete before writing new one
         try {
             Files.deleteIfExists(FileSystems.getDefault().getPath(TEXT_FILE_NAME));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // Store all data in "contacts.txt" text file
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(TEXT_FILE_NAME))) {
             output.writeObject(contactSet);
             output.writeObject(meetingList);

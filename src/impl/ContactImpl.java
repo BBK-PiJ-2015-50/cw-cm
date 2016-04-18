@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Created by Chris Kimberley on 08/03/2016.
+ * @author Chris Kimberley
  *
  * @see Contact
  */
@@ -10,6 +10,13 @@ public class ContactImpl implements Contact, Serializable {
     private int id;
     private String name, notes;
 
+    /**
+     * Constructor including notes about the contact
+     *
+     * @param id unique id for contact
+     * @param name name of contact
+     * @param notes notes about contact
+     */
     public ContactImpl(int id, String name, String notes) {
         if (name == null || notes == null) {
             throw new NullPointerException();
@@ -22,6 +29,11 @@ public class ContactImpl implements Contact, Serializable {
         this.notes = notes;
     }
 
+    /**
+     * Constructor without notes about the contact
+     * @param id unique id for contact
+     * @param name name of contact
+     */
     public ContactImpl(int id, String name) {
         this(id, name, "");
     }
@@ -43,9 +55,10 @@ public class ContactImpl implements Contact, Serializable {
     }
 
     /**
-     * Overriding equals() - based on id & name
+     * Overriding equals() - test for equality based on id and name
+     * Required for comparison purposes in some methods
      *
-     * @param obj
+     * @param obj Object used to test for equality
      * @return
      */
     @Override
@@ -61,7 +74,7 @@ public class ContactImpl implements Contact, Serializable {
     }
 
     /**
-     * Also overriding hashCode - based on id & name
+     * Overriding hashCode - based on id and name
      *
      * @return
      */

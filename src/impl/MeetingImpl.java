@@ -3,7 +3,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 /**
- * Created by chris on 13/03/2016.
+ * @author Chris Kimberley
  *
  * @see Meeting
  */
@@ -12,6 +12,11 @@ public abstract class MeetingImpl implements Meeting, Serializable {
     private Calendar date;
     private Set<Contact> contacts;
 
+    /**
+     * @param id unique meeting ID
+     * @param date date of meeting
+     * @param contacts contacts participating in meeting
+     */
     public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
         if (id <= 0 || contacts.isEmpty()) {
             throw new IllegalArgumentException();
