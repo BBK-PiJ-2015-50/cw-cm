@@ -1,4 +1,3 @@
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
 import java.nio.file.FileSystems;
@@ -158,7 +157,7 @@ public class ContactManagerImpl implements ContactManager, Serializable {
         }
         if (selectedMeeting instanceof PastMeeting) {
             String previousNotes = ((PastMeeting) selectedMeeting).getNotes();
-            if (previousNotes != "") {
+            if (!previousNotes.equals("")) {
                 text = previousNotes + "\n" + text;
             }
         }
