@@ -30,9 +30,7 @@ public class ContactManagerImpl implements ContactManager, Serializable {
                 meetingList = (List<Meeting>) input.readObject();
                 contactId = (int) input.readObject();
                 meetingId = (int) input.readObject();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
             }
         }
